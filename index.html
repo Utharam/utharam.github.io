@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utharam — Simple Solutions for Complex Problems</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1a1a1a;
+      background: #fafafa;
+      line-height: 1.6;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-size: 1.4rem; font-weight: 700; color: #2c3e50; cursor: pointer; }
+    .logo span { color: #27ae60; }
+    nav ul { display: flex; gap: 2rem; list-style: none; }
+    nav a {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0.3rem 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    nav a:hover { color: #27ae60; }
+    nav a.active { color: #27ae60; border-bottom-color: #27ae60; }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e9 100%);
+    }
+    .hero h1 { font-size: 3rem; margin-bottom: 1rem; color: #2c3e50; }
+    .hero p {
+      font-size: 1.3rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .tagline {
+      display: inline-block;
+      background: #27ae60;
+      color: #fff;
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.5rem;
+    }
+
+    .tab-content {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      display: none;
+    }
+    .tab-content.active { display: block; }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+      text-align: center;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+    }
+    .product-info h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #2c3e50; }
+    .product-info p { color: #666; margin-bottom: 1rem; }
+    .btn {
+      display: inline-block;
+      background: #27ae60;
+      color: #fff;
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .btn:hover { background: #229954; }
+    .pipeline-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+      border-left: 4px solid #27ae60;
+    }
+    .pipeline-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #2c3e50; }
+    .pipeline-card p { color: #666; margin-bottom: 1rem; }
+    .status-badge {
+      display: inline-block;
+      background: #fff3cd;
+      color: #856404;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .about-content {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .about-content p { color: #555; font-size: 1.15rem; margin-bottom: 1.2rem; }
+    .about-content p:last-child { margin-bottom: 0; }
+    .contact-box {
+      background: #2c3e50;
+      color: #fff;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-radius: 12px;
+    }
+    .contact-box h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .contact-box p { color: #bbb; margin-bottom: 2rem; }
+    .contact-box a {
+      color: #27ae60;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .contact-box a:hover { text-decoration: underline; }
+    .contact-info { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+    .contact-item { color: #ddd; }
+
+    footer {
+      background: #1a252f;
+      color: #888;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      nav ul { gap: 1rem; }
+      nav { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo" onclick="showTab('products')">Utharam<span>.</span></div>
+    <ul>
+      <li><a onclick="showTab('products')" id="tab-products">Products</a></li>
+      <li><a onclick="showTab('pipeline')" id="tab-pipeline">Pipeline</a></li>
+      <li><a onclick="showTab('about')" id="tab-about">About</a></li>
+      <li><a onclick="showTab('contact')" id="tab-contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="tagline">Simple Solutions for Complex Problems</div>
+    <h1>Utharam</h1>
+    <p>Building practical, offline-first software for small businesses that just works.</p>
+  </section>
+
+  <section class="tab-content active" id="products">
+    <h2 class="section-title">Our Products</h2>
+    <div class="product-card">
+      <div class="product-info">
+        <h3>AgroShop Manager</h3>
+        <p>A GST-compliant billing and inventory system designed for Kerala agro retailers. Handles farmer purchases with reverse charge, equipment leases, customer advances, B2B resales, and offline-first PWA architecture.</p>
+        <a href="https://agroshopmanager.netlify.app/" class="btn" target="_blank" rel="noopener noreferrer">Open App</a>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-info">
+        <h3>Narration Generator</h3>
+        <p>Automate narration generation for recurring accounting transactions like daily rollover deposits, prepaid expense splits, and number-to-text conversion for cheques.</p>
+        <a href="https://utharam.github.io/narration-generator/" class="btn" target="_blank" rel="noopener noreferrer">Open App</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="tab-content" id="pipeline">
+    <h2 class="section-title">Projects in Pipeline</h2>
+    <div class="pipeline-card">
+      <h3>HR Dashboard</h3>
+      <p>A centralized dashboard for managing employee data, attendance, payroll, and performance metrics — designed for small organizations that need clarity without complexity.</p>
+      <span class="status-badge">Planned</span>
+    </div>
+    <div class="pipeline-card">
+      <h3>Organization Chart Builder</h3>
+      <p>A visual tool to create, edit, and export organization charts. Drag-and-drop simplicity with export options for PDF and PNG.</p>
+      <span class="status-badge">Planned</span>
+    </div>
+  </section>
+
+  <section class="tab-content" id="about">
+    <h2 class="section-title">About Utharam</h2>
+    <div class="about-content">
+      <p>At Utharam, we build practical, offline-first software for small businesses that just works.</p>
+      <p>We're also curious to identify and create tools for accountants.</p>
+      <p>This project is by an accountant, for accountants.</p>
+    </div>
+  </section>
+
+  <section class="tab-content" id="contact">
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="contact-box">
+      <p>Have a question about our products or need a custom solution? Reach out.</p>
+      <div class="contact-info">
+        <div class="contact-item">Email: <a href="mailto:contactutharam@gmail.com">contactutharam@gmail.com</a></div>
+        <div class="contact-item">GitHub: <a href="https://github.com/Utharam" target="_blank" rel="noopener noreferrer">github.com/Utharam</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; <span id="year"></span> Utharam. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function showTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('nav a').forEach(t => t.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      document.getElementById('tab-' + tabName).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
