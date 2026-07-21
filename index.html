@@ -24,7 +24,8 @@
       z-index: 100;
     }
     .logo { font-size: 1.4rem; font-weight: 700; color: #2c3e50; cursor: pointer; }
-    .logo span { color: #27ae60; }
+    .logo .u-blue { color: #1877F2; }
+    .logo .dot { color: #27ae60; }
     nav ul { display: flex; gap: 2rem; list-style: none; }
     nav a {
       text-decoration: none;
@@ -39,27 +40,35 @@
     nav a.active { color: #27ae60; border-bottom-color: #27ae60; }
 
     .hero {
-      text-align: center;
-      padding: 4rem 2rem 3rem;
+      padding: 2.5rem 2rem;
       background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e9 100%);
     }
-    .hero h1 { font-size: 3rem; margin-bottom: 1rem; color: #2c3e50; }
-    .hero p {
-      font-size: 1.3rem;
-      color: #666;
-      max-width: 600px;
+    .hero-grid {
+      max-width: 1100px;
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
     }
-    .tagline {
-      display: inline-block;
-      background: #27ae60;
-      color: #fff;
-      padding: 0.5rem 1.5rem;
-      border-radius: 25px;
-      font-size: 1rem;
+    .hero-left .brand {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #2c3e50;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
+    .hero-left .brand .u-blue { color: #1877F2; }
+    .hero-left .brand .dot { color: #27ae60; }
+    .hero-left .tagline {
+      color: #27ae60;
+      font-size: 1.1rem;
       font-weight: 500;
-      letter-spacing: 0.5px;
-      margin-bottom: 1.5rem;
+      letter-spacing: 0.3px;
+    }
+    .hero-right p {
+      color: #555;
+      font-size: 1.1rem;
     }
 
     .tab-content {
@@ -147,8 +156,9 @@
       margin-top: 3rem;
     }
 
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2rem; }
+    @media (max-width: 700px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .hero-left .brand { font-size: 2.2rem; }
       nav ul { gap: 1rem; }
       nav { padding: 1rem; }
     }
@@ -157,7 +167,7 @@
 <body>
 
   <nav>
-    <div class="logo" onclick="showTab('products')">Utharam<span>.</span></div>
+    <div class="logo" onclick="showTab('products')"><span class="u-blue">U</span>tharam<span class="dot">.</span></div>
     <ul>
       <li><a onclick="showTab('products')" id="tab-products">Products</a></li>
       <li><a onclick="showTab('pipeline')" id="tab-pipeline">Pipeline</a></li>
@@ -167,9 +177,15 @@
   </nav>
 
   <section class="hero">
-    <div class="tagline">Simple Solutions for Complex Problems</div>
-    <h1>Utharam</h1>
-    <p>Building practical, offline-first software for small businesses that just works.</p>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="brand"><span class="u-blue">U</span>tharam<span class="dot">.</span></div>
+        <div class="tagline">Simple Solutions for Complex Problems</div>
+      </div>
+      <div class="hero-right">
+        <p>Building practical, offline-first software for small businesses and accountants that just works.</p>
+      </div>
+    </div>
   </section>
 
   <section class="tab-content active" id="products">
