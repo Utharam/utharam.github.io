@@ -302,6 +302,9 @@
       padding: 1.75rem;
       transition: all 0.2s ease;
       box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .pipeline-card:hover {
@@ -671,19 +674,28 @@
 
       <div class="grid-2">
         <article class="pipeline-card">
-          <div class="pipeline-header">
-            <h3>HR Dashboard</h3>
-            <span class="status-badge"><span class="status-dot"></span> Planned</span>
+          <div>
+            <div class="pipeline-header">
+              <h3>HR Dashboard</h3>
+              <span class="status-badge"><span class="status-dot"></span> Planned</span>
+            </div>
+            <p>A centralized dashboard for managing employee data, attendance, payroll, and performance metrics — designed for small organizations that need clarity without complexity.</p>
           </div>
-          <p>A centralized dashboard for managing employee data, attendance, payroll, and performance metrics — designed for small organizations that need clarity without complexity.</p>
         </article>
 
         <article class="pipeline-card">
-          <div class="pipeline-header">
-            <h3>Organization Chart Builder</h3>
-            <span class="status-badge"><span class="status-dot"></span> Planned</span>
+          <div>
+            <div class="pipeline-header">
+              <h3>Organization Chart Builder</h3>
+              <span class="status-badge"><span class="status-dot"></span> Planned</span>
+            </div>
+            <p>A visual tool to create, edit, and export organization charts. Drag-and-drop simplicity with high-resolution export options for PDF and PNG formats.</p>
           </div>
-          <p>A visual tool to create, edit, and export organization charts. Drag-and-drop simplicity with high-resolution export options for PDF and PNG formats.</p>
+          <div class="card-action" style="margin-top: 1.25rem;">
+            <a href="https://github.com/Utharam/Corporate-structure-builder" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+              View on GitHub <span>→</span>
+            </a>
+          </div>
         </article>
       </div>
     </section>
