@@ -5,253 +5,773 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Utharam — Simple Solutions for Complex Problems</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: #1a1a1a;
-      background: #fafafa;
-      line-height: 1.6;
+    :root {
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --bg-main: #fafafb;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --border-hover: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-light: #ecfdf5;
+      --accent-border: #a7f3d0;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--text-main);
+      background-color: var(--bg-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Navigation */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 2rem;
-      background: #fff;
-      border-bottom: 1px solid #eee;
+      padding: 1.25rem 2rem;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
       z-index: 100;
     }
-    .logo { font-size: 1.4rem; font-weight: 700; color: #2c3e50; cursor: pointer; }
-    .logo .u-blue { color: #1877F2; }
-    .logo .dot { color: #27ae60; }
-    nav ul { display: flex; gap: 2rem; list-style: none; }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.03em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 0.5rem;
+      list-style: none;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: var(--radius-full);
+      border: 1px solid #e2e8f0;
+    }
+
     nav a {
       text-decoration: none;
-      color: #555;
+      color: var(--text-muted);
       font-weight: 500;
+      font-size: 0.9rem;
       cursor: pointer;
-      padding: 0.3rem 0;
-      border-bottom: 2px solid transparent;
-      transition: all 0.2s;
+      padding: 0.4rem 1.1rem;
+      border-radius: var(--radius-full);
+      transition: all 0.2s ease;
+      display: inline-block;
     }
-    nav a:hover { color: #27ae60; }
-    nav a.active { color: #27ae60; border-bottom-color: #27ae60; }
 
+    nav a:hover {
+      color: var(--text-main);
+    }
+
+    nav a.active {
+      color: var(--text-main);
+      background: #ffffff;
+      box-shadow: var(--shadow-sm);
+      font-weight: 600;
+    }
+
+    /* Hero Section */
     .hero {
-      padding: 2.5rem 2rem;
-      background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e9 100%);
+      text-align: center;
+      padding: 4.5rem 1.5rem 3.5rem;
+      background: radial-gradient(circle at 50% 0%, #ecfdf5 0%, #fafafb 70%);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
     }
-    .hero-grid {
-      max-width: 1100px;
+
+    .hero-container {
+      max-width: 760px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
+    }
+
+    .tagline {
+      display: inline-flex;
       align-items: center;
+      gap: 6px;
+      background: var(--accent-light);
+      color: var(--accent-hover);
+      border: 1px solid var(--accent-border);
+      padding: 0.35rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin-bottom: 1.5rem;
     }
-    .hero-left .brand {
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: #2c3e50;
-      line-height: 1.1;
-      margin-bottom: 0.4rem;
+
+    .hero h1 {
+      font-size: 3.25rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+      margin-bottom: 1.25rem;
+      color: var(--text-main);
     }
-    .hero-left .brand .u-blue { color: #1877F2; }
-    .hero-left .brand .dot { color: #27ae60; }
-    .hero-left .tagline {
-      color: #27ae60;
-      font-size: 1.1rem;
-      font-weight: 500;
-      letter-spacing: 0.3px;
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto;
+      font-weight: 400;
+      line-height: 1.6;
     }
-    .hero-right p {
-      color: #555;
-      font-size: 1.1rem;
+
+    /* Main Container & Tabs */
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
     }
 
     .tab-content {
-      max-width: 900px;
-      margin: 3rem auto;
-      padding: 0 2rem;
       display: none;
+      animation: fadeIn 0.25s ease-in-out;
     }
-    .tab-content.active { display: block; }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
     .section-title {
       font-size: 2rem;
-      margin-bottom: 2rem;
-      color: #2c3e50;
-      text-align: center;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.025em;
+      margin-bottom: 0.5rem;
     }
-    .product-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      margin-bottom: 2rem;
-    }
-    .product-info h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #2c3e50; }
-    .product-info p { color: #666; margin-bottom: 1rem; }
-    .btn {
-      display: inline-block;
-      background: #27ae60;
-      color: #fff;
-      padding: 0.6rem 1.5rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .btn:hover { background: #229954; }
-    .pipeline-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      margin-bottom: 2rem;
-      border-left: 4px solid #27ae60;
-    }
-    .pipeline-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #2c3e50; }
-    .pipeline-card p { color: #666; margin-bottom: 1rem; }
-    .status-badge {
-      display: inline-block;
-      background: #fff3cd;
-      color: #856404;
-      padding: 0.3rem 0.8rem;
-      border-radius: 15px;
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-    .about-content {
-      max-width: 700px;
+
+    .section-subtitle {
+      color: var(--text-light);
+      font-size: 1.05rem;
+      max-width: 580px;
       margin: 0 auto;
-      text-align: center;
     }
-    .about-content p { color: #555; font-size: 1.15rem; margin-bottom: 1.2rem; }
-    .about-content p:last-child { margin-bottom: 0; }
-    .contact-box {
-      background: #2c3e50;
-      color: #fff;
-      padding: 3rem 2rem;
-      text-align: center;
-      border-radius: 12px;
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
     }
-    .contact-box h2 { font-size: 2rem; margin-bottom: 1rem; }
-    .contact-box p { color: #bbb; margin-bottom: 2rem; }
-    .contact-box a {
-      color: #27ae60;
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Product Cards */
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .product-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent-hover);
+      background: var(--accent-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--accent-border);
+    }
+
+    .product-info h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    .product-info p {
+      color: var(--text-muted);
+      font-size: 0.975rem;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+
+    .card-action {
+      margin-top: auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--text-main);
+      color: #ffffff;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-md);
       text-decoration: none;
-      font-weight: 500;
-    }
-    .contact-box a:hover { text-decoration: underline; }
-    .contact-info { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
-    .contact-item { color: #ddd; }
-
-    footer {
-      background: #1a252f;
-      color: #888;
-      text-align: center;
-      padding: 1.5rem;
+      font-weight: 600;
       font-size: 0.9rem;
-      margin-top: 3rem;
+      transition: all 0.2s ease;
     }
 
-    @media (max-width: 700px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .hero-left .brand { font-size: 2.2rem; }
-      nav ul { gap: 1rem; }
-      nav { padding: 1rem; }
+    .btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: #f8fafc;
+      border-color: var(--border-hover);
+      color: var(--text-main);
+    }
+
+    /* Pipeline Cards */
+    .pipeline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pipeline-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-md);
+    }
+
+    .pipeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .pipeline-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--text-main);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d97706;
+    }
+
+    .pipeline-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* About Section - Professional Design */
+    .about-hero {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+
+    .about-hero h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
+
+    .about-hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .pillar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .pillar-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .pillar-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--accent-light);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-hover);
+      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .pillar-card h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .pillar-card p {
+      font-size: 0.925rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .about-footer-note {
+      margin-top: 2.5rem;
+      padding: 1.5rem 2rem;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+
+    /* Contact Section */
+    .contact-box {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 4rem 2.5rem;
+      text-align: center;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      background-image: radial-gradient(circle at 100% 0%, rgba(5, 150, 105, 0.15) 0%, transparent 50%);
+    }
+
+    .contact-box h2 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .contact-box p {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .contact-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.25rem 2rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .contact-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .contact-card-icon {
+      font-size: 1.4rem;
+    }
+
+    .contact-card-text span {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+    }
+
+    .contact-card-text strong {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f8fafc;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-light);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.875rem;
+    }
+
+    footer p {
+      margin-top: 0.25rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .hero {
+        padding: 3rem 1rem 2.5rem;
+      }
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+      .hero p {
+        font-size: 1.05rem;
+      }
+      main {
+        padding: 2rem 1rem 3.5rem;
+      }
+      .section-title {
+        font-size: 1.65rem;
+      }
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .about-hero {
+        padding: 2rem 1.25rem;
+      }
+      .contact-box {
+        padding: 2.5rem 1.25rem;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- Navigation Bar -->
   <nav>
-    <div class="logo" onclick="showTab('products')"><span class="u-blue">U</span>tharam<span class="dot">.</span></div>
+    <div class="logo" onclick="showTab('products')">
+      Utharam<span>.</span>
+    </div>
     <ul>
-      <li><a onclick="showTab('products')" id="tab-products">Products</a></li>
+      <li><a onclick="showTab('products')" id="tab-products" class="active">Products &amp; Solutions</a></li>
       <li><a onclick="showTab('pipeline')" id="tab-pipeline">Pipeline</a></li>
       <li><a onclick="showTab('about')" id="tab-about">About</a></li>
       <li><a onclick="showTab('contact')" id="tab-contact">Contact</a></li>
     </ul>
   </nav>
 
-  <section class="hero">
-    <div class="hero-grid">
-      <div class="hero-left">
-        <div class="brand"><span class="u-blue">U</span>tharam<span class="dot">.</span></div>
-        <div class="tagline">Simple Solutions for Complex Problems</div>
+  <!-- Hero Banner -->
+  <header class="hero">
+    <div class="hero-container">
+      <div class="tagline">
+        <span>✨</span> Simple Solutions for Complex Problems
       </div>
-      <div class="hero-right">
-        <p>Building practical, offline-first software for small businesses and accountants that just works.</p>
+      <h1>Utharam</h1>
+      <p>Building practical, offline-first software designed for clarity, control, and real-world accounting workflows.</p>
+    </div>
+  </header>
+
+  <!-- Main Content Body -->
+  <main>
+
+    <!-- Tab 1: Products & Solutions -->
+    <section class="tab-content active" id="products">
+      <div class="section-header">
+        <h2 class="section-title">Our Products and Solutions</h2>
+        <p class="section-subtitle">Purpose-built web and desktop tools engineered for speed, privacy, and operational clarity.</p>
       </div>
-    </div>
-  </section>
 
-  <section class="tab-content active" id="products">
-    <h2 class="section-title">Our Products</h2>
-    <div class="product-card">
-      <div class="product-info">
-        <h3>AgroShop Manager</h3>
-        <p>A GST-compliant billing and inventory system designed for Kerala agro retailers. Handles farmer purchases with reverse charge, equipment leases, customer advances, B2B resales, and offline-first PWA architecture.</p>
-        <a href="https://agroshopmanager.netlify.app/" class="btn" target="_blank" rel="noopener noreferrer">Open App</a>
+      <div class="grid-2">
+        
+        <!-- AgroShop Manager -->
+        <article class="product-card">
+          <div class="product-info">
+            <div class="card-tags">
+              <span class="tag">Billing &amp; Inventory</span>
+              <span class="tag">GST Compliant</span>
+              <span class="tag">Offline-First PWA</span>
+            </div>
+            <h3>AgroShop Manager</h3>
+            <p>A GST-compliant billing and inventory system designed specifically for Kerala agro retailers. Handles farmer purchases with reverse charge, equipment leases, customer advances, B2B resales, and offline-first web architecture.</p>
+          </div>
+          <div class="card-action">
+            <a href="https://agroshopmanager.netlify.app/" class="btn" target="_blank" rel="noopener noreferrer">
+              Open App <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Narration Generator -->
+        <article class="product-card">
+          <div class="product-info">
+            <div class="card-tags">
+              <span class="tag">Accounting Tool</span>
+              <span class="tag">Automation</span>
+              <span class="tag">Browser Native</span>
+            </div>
+            <h3>Narration Generator</h3>
+            <p>Automate narration generation for recurring accounting transactions like daily rollover deposits, prepaid expense splits, and instant number-to-text conversion for cheques.</p>
+          </div>
+          <div class="card-action">
+            <a href="https://utharam.github.io/narration-generator/" class="btn" target="_blank" rel="noopener noreferrer">
+              Open App <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Excel Cleaner -->
+        <article class="product-card">
+          <div class="product-info">
+            <div class="card-tags">
+              <span class="tag">Data Formatting</span>
+              <span class="tag">Rule Engine</span>
+              <span class="tag">Privacy-First</span>
+              <span class="tag">Zero Backend</span>
+            </div>
+            <h3>Excel Cleaner</h3>
+            <p>A privacy-first, zero-backend browser application — a one-click solution for fixing messy number and date formats, cleaning transaction data, and flagging entries based on custom rules.</p>
+          </div>
+          <div class="card-action">
+            <a href="https://utharam.github.io/excel-cleaner/" class="btn" target="_blank" rel="noopener noreferrer">
+              Open App <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Main-Deck -->
+        <article class="product-card">
+          <div class="product-info">
+            <div class="card-tags">
+              <span class="tag">Personal Control Surface</span>
+              <span class="tag">Local-First</span>
+              <span class="tag">Desktop</span>
+            </div>
+            <h3>Main-Deck</h3>
+            <p>Main Deck by Utharam is a minimal, local-first personal control surface designed for corporate desktop users. Rather than trying to replace heavy tools like ERPs, spreadsheets, or email clients, it sits calmly above them as a central converging point to organize priorities.</p>
+          </div>
+          <div class="card-action">
+            <a href="https://utharam.github.io/Main-Deck/" class="btn" target="_blank" rel="noopener noreferrer">
+              Open App <span>→</span>
+            </a>
+          </div>
+        </article>
+
       </div>
-    </div>
-    <div class="product-card">
-      <div class="product-info">
-        <h3>Narration Generator</h3>
-        <p>Automate narration generation for recurring accounting transactions like daily rollover deposits, prepaid expense splits, and number-to-text conversion for cheques.</p>
-        <a href="https://utharam.github.io/narration-generator/" class="btn" target="_blank" rel="noopener noreferrer">Open App</a>
+    </section>
+
+    <!-- Tab 2: Pipeline -->
+    <section class="tab-content" id="pipeline">
+      <div class="section-header">
+        <h2 class="section-title">Projects in Pipeline</h2>
+        <p class="section-subtitle">Upcoming tools currently under active design and development.</p>
       </div>
-    </div>
-  </section>
 
-  <section class="tab-content" id="pipeline">
-    <h2 class="section-title">Projects in Pipeline</h2>
-    <div class="pipeline-card">
-      <h3>HR Dashboard</h3>
-      <p>A centralized dashboard for managing employee data, attendance, payroll, and performance metrics — designed for small organizations that need clarity without complexity.</p>
-      <span class="status-badge">Planned</span>
-    </div>
-    <div class="pipeline-card">
-      <h3>Organization Chart Builder</h3>
-      <p>A visual tool to create, edit, and export organization charts. Drag-and-drop simplicity with export options for PDF and PNG.</p>
-      <span class="status-badge">Planned</span>
-    </div>
-  </section>
+      <div class="grid-2">
+        <article class="pipeline-card">
+          <div class="pipeline-header">
+            <h3>HR Dashboard</h3>
+            <span class="status-badge"><span class="status-dot"></span> Planned</span>
+          </div>
+          <p>A centralized dashboard for managing employee data, attendance, payroll, and performance metrics — designed for small organizations that need clarity without complexity.</p>
+        </article>
 
-  <section class="tab-content" id="about">
-    <h2 class="section-title">About Utharam</h2>
-    <div class="about-content">
-      <p>At Utharam, we build practical, offline-first software for small businesses that just works.</p>
-      <p>We're also curious to identify and create tools for accountants.</p>
-      <p>This project is by an accountant, for accountants.</p>
-    </div>
-  </section>
-
-  <section class="tab-content" id="contact">
-    <h2 class="section-title">Get in Touch</h2>
-    <div class="contact-box">
-      <p>Have a question about our products or need a custom solution? Reach out.</p>
-      <div class="contact-info">
-        <div class="contact-item">Email: <a href="mailto:contactutharam@gmail.com">contactutharam@gmail.com</a></div>
-        <div class="contact-item">GitHub: <a href="https://github.com/Utharam" target="_blank" rel="noopener noreferrer">github.com/Utharam</a></div>
+        <article class="pipeline-card">
+          <div class="pipeline-header">
+            <h3>Organization Chart Builder</h3>
+            <span class="status-badge"><span class="status-dot"></span> Planned</span>
+          </div>
+          <p>A visual tool to create, edit, and export organization charts. Drag-and-drop simplicity with high-resolution export options for PDF and PNG formats.</p>
+        </article>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <!-- Tab 3: Professional About -->
+    <section class="tab-content" id="about">
+      <div class="section-header">
+        <h2 class="section-title">About Utharam</h2>
+        <p class="section-subtitle">Bridging domain expertise in accounting with practical, offline-first software engineering.</p>
+      </div>
+
+      <div class="about-hero">
+        <h3>Building Software That Just Works.</h3>
+        <p>At Utharam, we build practical, offline-first software designed for small businesses, accountants, and corporate desktop users. We focus on solving high-friction operational challenges with privacy-first architecture and minimal, reliable tools.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="pillar-card">
+          <div class="pillar-icon">🔒</div>
+          <h4>Privacy &amp; Local-First</h4>
+          <p>Your financial data stays on your device. We design zero-backend, browser-native, and local-first applications that ensure absolute privacy and work without internet dependency.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">⚡</div>
+          <h4>Practical Utility</h4>
+          <p>We eliminate unnecessary feature bloat. Every tool is crafted to remove manual administrative overhead, simplify reconciliation, and deliver instant operational feedback.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">📊</div>
+          <h4>Built by an Accountant</h4>
+          <p>Created with firsthand understanding of real-world compliance, ledger entries, and business workflows. Software built by an accountant, for accountants and business owners.</p>
+        </div>
+      </div>
+
+      <div class="about-footer-note">
+        "Simple, reliable solutions crafted to bring order and clarity to daily business operations."
+      </div>
+    </section>
+
+    <!-- Tab 4: Contact -->
+    <section class="tab-content" id="contact">
+      <div class="contact-box">
+        <h2>Get in Touch</h2>
+        <p>Have a question about our products or need a custom solution for your business? Reach out to us.</p>
+        
+        <div class="contact-grid">
+          <a href="mailto:contactutharam@gmail.com" class="contact-card">
+            <span class="contact-card-icon">✉️</span>
+            <div class="contact-card-text">
+              <span>Email Us</span>
+              <strong>contactutharam@gmail.com</strong>
+            </div>
+          </a>
+
+          <a href="https://github.com/Utharam" target="_blank" rel="noopener noreferrer" class="contact-card">
+            <span class="contact-card-icon">💻</span>
+            <div class="contact-card-text">
+              <span>GitHub</span>
+              <strong>github.com/Utharam</strong>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
   <footer>
-    &copy; <span id="year"></span> Utharam. All rights reserved.
+    <p>&copy; <span id="year"></span> Utharam. All rights reserved.</p>
   </footer>
 
+  <!-- Tab Switch Script -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
     function showTab(tabName) {
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       document.querySelectorAll('nav a').forEach(t => t.classList.remove('active'));
-      document.getElementById(tabName).classList.add('active');
-      document.getElementById('tab-' + tabName).classList.add('active');
+      
+      const targetContent = document.getElementById(tabName);
+      const targetTab = document.getElementById('tab-' + tabName);
+      
+      if (targetContent) targetContent.classList.add('active');
+      if (targetTab) targetTab.classList.add('active');
+      
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
