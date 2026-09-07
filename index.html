@@ -1,283 +1,539 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Utharam — Simple Solutions for Complex Problems</title>
+  <meta name="description" content="Utharam builds practical, offline-first software designed for clarity, control, and real-world accounting workflows. Client-side, zero-knowledge financial tools.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Utharam — Simple Solutions for Complex Problems">
+  <meta property="og:description" content="Purpose-built web and desktop tools engineered for speed, privacy, and operational accounting clarity.">
+  <meta property="og:url" content="https://utharam.github.io/">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Theme Flash Prevention -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+
   <style>
     :root {
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      --bg-main: #fafafb;
-      --bg-card: #ffffff;
-      --border-color: #e2e8f0;
+      --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Neo-Swiss Archival Light Palette */
+      --bg-page: #fbfbfa;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f8fafc;
+      --bg-surface-subtle: #f1f5f9;
+      --border-light: #e6e8ea;
       --border-hover: #cbd5e1;
+      --border-accent: #a7f3d0;
+      
       --text-main: #0f172a;
       --text-muted: #475569;
-      --text-light: #64748b;
+      --text-subtle: #64748b;
+      
       --accent: #059669;
+      --accent-deep: #166534;
       --accent-hover: #047857;
-      --accent-light: #ecfdf5;
-      --accent-border: #a7f3d0;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02);
+      --accent-surface: #ecfdf5;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -2px rgba(15, 23, 42, 0.03);
+      --shadow-lg: 0 16px 24px -4px rgba(15, 23, 42, 0.06), 0 6px 12px -4px rgba(15, 23, 42, 0.03);
+
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 16px;
       --radius-full: 9999px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    html {
-      scroll-behavior: smooth;
+    .dark {
+      /* Neo-Swiss Titanium Dark Palette */
+      --bg-page: #0b0f17;
+      --bg-surface: #111827;
+      --bg-surface-elevated: #1a2234;
+      --bg-surface-subtle: #1e293b;
+      --border-light: #1f293d;
+      --border-hover: #334155;
+      --border-accent: #064e3b;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+      
+      --accent: #10b981;
+      --accent-deep: #34d399;
+      --accent-hover: #059669;
+      --accent-surface: rgba(16, 185, 129, 0.1);
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 16px 24px -4px rgba(0, 0, 0, 0.6);
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: var(--font-sans);
       color: var(--text-main);
-      background-color: var(--bg-main);
+      background-color: var(--bg-page);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    /* Navigation */
-    nav {
+    /* Subdued Background Grid */
+    .bg-grid-pattern {
+      background-image: radial-gradient(var(--border-light) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Typography Utilities */
+    .font-mono {
+      font-family: var(--font-mono);
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Header & Sticky Navigation */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(251, 251, 250, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-light);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    .dark header.site-header {
+      background: rgba(11, 15, 23, 0.88);
+    }
+
+    .nav-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.25rem 2rem;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 100;
     }
 
-    .logo {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--text-main);
-      letter-spacing: -0.03em;
-      cursor: pointer;
+    .brand {
       display: flex;
       align-items: center;
-      gap: 2px;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text-main);
     }
 
-    .logo span {
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      font-family: var(--font-mono);
+    }
+
+    .brand-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-name span {
       color: var(--accent);
     }
 
-    nav ul {
+    .nav-menu {
       display: flex;
-      gap: 0.5rem;
+      align-items: center;
+      gap: 0.25rem;
       list-style: none;
-      background: #f1f5f9;
+      background: var(--bg-surface-elevated);
       padding: 4px;
       border-radius: var(--radius-full);
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-light);
     }
 
-    nav a {
+    .nav-link {
       text-decoration: none;
       color: var(--text-muted);
       font-weight: 500;
-      font-size: 0.9rem;
-      cursor: pointer;
-      padding: 0.4rem 1.1rem;
+      font-size: 0.875rem;
+      padding: 0.35rem 0.9rem;
       border-radius: var(--radius-full);
-      transition: all 0.2s ease;
-      display: inline-block;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
     }
 
-    nav a:hover {
+    .nav-link:hover, .nav-link.active {
       color: var(--text-main);
-    }
-
-    nav a.active {
-      color: var(--text-main);
-      background: #ffffff;
+      background: var(--bg-surface);
       box-shadow: var(--shadow-sm);
-      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .icon-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .icon-btn:hover {
+      color: var(--text-main);
+      border-color: var(--border-hover);
+      background: var(--bg-surface-elevated);
     }
 
     /* Hero Section */
     .hero {
+      padding: 5rem 1.5rem 3.5rem;
       text-align: center;
-      padding: 4.5rem 1.5rem 3.5rem;
-      background: radial-gradient(circle at 50% 0%, #ecfdf5 0%, #fafafb 70%);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+      position: relative;
+      border-bottom: 1px solid var(--border-light);
     }
 
-    .hero-container {
-      max-width: 760px;
+    .hero-glow {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse at top, var(--accent-surface) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-inner {
+      max-width: 820px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
-    .tagline {
+    .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: var(--accent-light);
-      color: var(--accent-hover);
-      border: 1px solid var(--accent-border);
-      padding: 0.35rem 1rem;
+      gap: 8px;
+      padding: 0.3rem 0.9rem;
+      background: var(--accent-surface);
+      color: var(--accent-deep);
+      border: 1px solid var(--border-accent);
       border-radius: var(--radius-full);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.01em;
       margin-bottom: 1.5rem;
     }
 
+    .dark .hero-badge {
+      color: var(--accent);
+    }
+
+    .hero-badge .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+    }
+
     .hero h1 {
-      font-size: 3.25rem;
+      font-size: clamp(2.5rem, 5vw, 3.85rem);
       font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.035em;
+      line-height: 1.12;
+      letter-spacing: -0.04em;
       margin-bottom: 1.25rem;
       color: var(--text-main);
     }
 
-    .hero p {
+    .hero p.lead {
       font-size: 1.2rem;
       color: var(--text-muted);
-      max-width: 620px;
-      margin: 0 auto;
-      font-weight: 400;
+      max-width: 660px;
+      margin: 0 auto 2.25rem;
       line-height: 1.6;
     }
 
-    /* Main Container & Tabs */
-    main {
-      max-width: 1080px;
+    /* Hero Trust Metrics Bar */
+    .hero-trust-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+      padding-top: 1rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .trust-item svg {
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Main Container */
+    main.site-content {
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 3rem 1.5rem 5rem;
+      padding: 4.5rem 1.5rem 6rem;
     }
 
-    .tab-content {
-      display: none;
-      animation: fadeIn 0.25s ease-in-out;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
+    section.content-section {
+      margin-bottom: 5.5rem;
+      scroll-margin-top: 5rem;
     }
 
     .section-header {
-      text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+      font-family: var(--font-mono);
     }
 
     .section-title {
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 2.15rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
       color: var(--text-main);
-      letter-spacing: -0.025em;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
     }
 
     .section-subtitle {
-      color: var(--text-light);
       font-size: 1.05rem;
-      max-width: 580px;
-      margin: 0 auto;
+      color: var(--text-muted);
+      max-width: 680px;
     }
 
-    /* Grid Layouts */
-    .grid-2 {
+    /* Category Filter */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.825rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: var(--font-mono);
+    }
+
+    .filter-btn:hover {
+      color: var(--text-main);
+      border-color: var(--border-hover);
+    }
+
+    .filter-btn.active {
+      background: var(--text-main);
+      color: var(--bg-page);
+      border-color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* Bento Grid: 6 Symmetrical Products */
+    .bento-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(12, 1fr);
       gap: 1.5rem;
     }
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    /* Product Cards */
     .product-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
       padding: 2rem;
-      transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
       box-shadow: var(--shadow-sm);
     }
 
     .product-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       box-shadow: var(--shadow-md);
+      border-color: var(--border-hover);
     }
 
-    .card-tags {
+    /* Flagship Bento Sizes */
+    .col-span-12 { grid-column: span 12; }
+    .col-span-8  { grid-column: span 8; }
+    .col-span-6  { grid-column: span 6; }
+    .col-span-4  { grid-column: span 4; }
+
+    /* Card Contents */
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      gap: 1rem;
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--accent-surface);
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
+      gap: 0.35rem;
+      justify-content: flex-end;
     }
 
-    .tag {
-      font-size: 0.75rem;
+    .pill-tag {
+      font-size: 0.7rem;
       font-weight: 600;
+      font-family: var(--font-mono);
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      color: var(--accent-hover);
-      background: var(--accent-light);
-      padding: 0.2rem 0.65rem;
+      padding: 0.2rem 0.55rem;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--accent-border);
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      border: 1px solid var(--border-light);
     }
 
-    .product-info h3 {
-      font-size: 1.4rem;
+    .pill-tag.accent {
+      background: var(--accent-surface);
+      color: var(--accent-deep);
+      border-color: var(--border-accent);
+    }
+    .dark .pill-tag.accent {
+      color: var(--accent);
+    }
+
+    .product-title {
+      font-size: 1.35rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
       color: var(--text-main);
+      margin-bottom: 0.25rem;
     }
 
-    .product-info p {
+    .product-subtitle {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .product-desc {
+      font-size: 0.95rem;
       color: var(--text-muted);
-      font-size: 0.975rem;
       line-height: 1.65;
       margin-bottom: 1.75rem;
     }
 
-    .card-action {
+    .card-meta-preview {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
       margin-top: auto;
     }
 
+    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--text-main);
-      color: #ffffff;
-      padding: 0.65rem 1.25rem;
+      padding: 0.6rem 1.15rem;
       border-radius: var(--radius-md);
-      text-decoration: none;
+      font-size: 0.875rem;
       font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
     }
 
-    .btn:hover {
+    .btn-primary {
+      background: var(--text-main);
+      color: var(--bg-page);
+      border: 1px solid var(--text-main);
+    }
+
+    .btn-primary:hover {
       background: var(--accent);
+      border-color: var(--accent);
       color: #ffffff;
       box-shadow: var(--shadow-sm);
     }
@@ -285,398 +541,700 @@
     .btn-secondary {
       background: transparent;
       color: var(--text-main);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border-light);
     }
 
     .btn-secondary:hover {
-      background: #f8fafc;
+      background: var(--bg-surface-elevated);
       border-color: var(--border-hover);
-      color: var(--text-main);
     }
 
-    /* Pipeline Cards */
-    .pipeline-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
+    /* The Local-First Standard Comparison Matrix */
+    .standard-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
-      padding: 1.75rem;
-      transition: all 0.2s ease;
+      overflow: hidden;
       box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
 
-    .pipeline-card:hover {
-      border-color: var(--border-hover);
-      box-shadow: var(--shadow-md);
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.925rem;
     }
 
-    .pipeline-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.75rem;
-    }
-
-    .pipeline-card h3 {
-      font-size: 1.25rem;
+    .matrix-table th {
+      padding: 1.1rem 1.5rem;
+      background: var(--bg-surface-elevated);
       font-weight: 700;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.01em;
+      border-bottom: 1px solid var(--border-light);
       color: var(--text-main);
     }
 
-    .status-badge {
+    .matrix-table th.highlight {
+      color: var(--accent);
+      background: var(--accent-surface);
+      border-bottom-color: var(--border-accent);
+    }
+
+    .matrix-table td {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-muted);
+      vertical-align: middle;
+    }
+
+    .matrix-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .matrix-table td.utharam-cell {
+      background: rgba(16, 185, 129, 0.03);
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .badge-diff {
       display: inline-flex;
       align-items: center;
       gap: 6px;
+    }
+
+    /* Pipeline Cards */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .pipeline-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pipeline-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
       background: #fef3c7;
       color: #92400e;
       border: 1px solid #fde68a;
-      padding: 0.25rem 0.75rem;
-      border-radius: var(--radius-full);
-      font-size: 0.8rem;
-      font-weight: 600;
     }
 
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #d97706;
+    .dark .pipeline-status {
+      background: rgba(217, 119, 6, 0.15);
+      color: #fbbf24;
+      border-color: rgba(217, 119, 6, 0.3);
     }
 
-    .pipeline-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
+    .pipeline-status.active-dev {
+      background: #e0f2fe;
+      color: #0369a1;
+      border-color: #bae6fd;
     }
 
-    /* About Section - Professional Design */
-    .about-hero {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
+    .dark .pipeline-status.active-dev {
+      background: rgba(14, 165, 233, 0.15);
+      color: #38bdf8;
+      border-color: rgba(14, 165, 233, 0.3);
+    }
+
+    /* About Section & Pillars */
+    .about-lead-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
       padding: 3rem 2.5rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       box-shadow: var(--shadow-sm);
-      text-align: center;
     }
 
-    .about-hero h3 {
-      font-size: 1.6rem;
+    .about-lead-box h3 {
+      font-size: 1.65rem;
       font-weight: 700;
       letter-spacing: -0.025em;
       color: var(--text-main);
       margin-bottom: 1rem;
     }
 
-    .about-hero p {
-      font-size: 1.1rem;
+    .about-lead-box p {
+      font-size: 1.05rem;
       color: var(--text-muted);
-      max-width: 720px;
-      margin: 0 auto;
-      line-height: 1.7;
+      line-height: 1.75;
+      margin-bottom: 1rem;
     }
 
-    .pillar-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
+    .about-lead-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .pillar-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
       padding: 1.75rem;
       box-shadow: var(--shadow-sm);
-      transition: all 0.2s ease;
     }
 
-    .pillar-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .pillar-icon {
-      width: 42px;
-      height: 42px;
-      background: var(--accent-light);
-      border: 1px solid var(--accent-border);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-hover);
-      font-size: 1.25rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .pillar-card h4 {
-      font-size: 1.15rem;
+    .pillar-box h4 {
+      font-size: 1.1rem;
       font-weight: 700;
-      letter-spacing: -0.015em;
       color: var(--text-main);
       margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .pillar-card p {
+    .pillar-box p {
       font-size: 0.925rem;
       color: var(--text-muted);
       line-height: 1.6;
     }
 
-    .about-footer-note {
-      margin-top: 2.5rem;
-      padding: 1.5rem 2rem;
-      background: #f8fafc;
-      border: 1px solid var(--border-color);
+    /* Developer Profile (Subtle & Authoritative) */
+    .developer-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .developer-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--accent);
+    }
+
+    .dev-profile-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .dev-avatar {
+      width: 60px;
+      height: 60px;
       border-radius: var(--radius-md);
-      text-align: center;
-      color: var(--text-light);
-      font-size: 0.95rem;
-      font-style: italic;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .dev-meta h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+    }
+
+    .dev-meta .dev-role {
+      font-size: 0.85rem;
+      color: var(--text-subtle);
+      font-family: var(--font-mono);
+      margin-bottom: 0.5rem;
+    }
+
+    .dev-meta .dev-summary {
+      font-size: 0.925rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      line-height: 1.55;
+    }
+
+    .dev-action {
+      flex-shrink: 0;
     }
 
     /* Contact Section */
     .contact-box {
       background: #0f172a;
-      color: #ffffff;
-      padding: 4rem 2.5rem;
-      text-align: center;
+      border: 1px solid #1e293b;
+      color: #f8fafc;
+      padding: 3.5rem 2.5rem;
       border-radius: var(--radius-lg);
+      text-align: center;
       box-shadow: var(--shadow-lg);
-      background-image: radial-gradient(circle at 100% 0%, rgba(5, 150, 105, 0.15) 0%, transparent 50%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dark .contact-box {
+      background: #111827;
+      border: 1px solid #1f293d;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    .contact-box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .contact-box h2 {
       font-size: 2.25rem;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: -0.03em;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
     }
 
     .contact-box p {
       color: #94a3b8;
-      font-size: 1.1rem;
-      max-width: 540px;
-      margin: 0 auto 2.5rem;
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto 2.25rem;
     }
 
-    .contact-grid {
+    .contact-actions {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
       flex-wrap: wrap;
     }
 
-    .contact-card {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1.25rem 2rem;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      text-decoration: none;
+    .contact-card-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
       color: #ffffff;
-      transition: all 0.2s ease;
+      padding: 0.85rem 1.5rem;
+      border-radius: var(--radius-md);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-size: 0.925rem;
+      font-weight: 600;
+      transition: all 0.15s ease;
+      cursor: pointer;
     }
 
-    .contact-card:hover {
-      background: rgba(255, 255, 255, 0.12);
+    .contact-card-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
       border-color: var(--accent);
+      color: #ffffff;
       transform: translateY(-2px);
     }
 
-    .contact-card-icon {
-      font-size: 1.4rem;
-    }
-
-    .contact-card-text span {
-      display: block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #94a3b8;
-    }
-
-    .contact-card-text strong {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #f8fafc;
-    }
-
     /* Footer */
-    footer {
-      border-top: 1px solid var(--border-color);
-      background: #ffffff;
-      color: var(--text-light);
+    footer.site-footer {
+      border-top: 1px solid var(--border-light);
+      background: var(--bg-surface);
+      color: var(--text-subtle);
+      padding: 2.5rem 1.5rem;
       text-align: center;
-      padding: 2rem 1.5rem;
       font-size: 0.875rem;
     }
 
-    footer p {
-      margin-top: 0.25rem;
+    .footer-content {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
+      background: var(--text-main);
+      color: var(--bg-page);
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Responsive */
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-      }
-      .hero {
-        padding: 3rem 1rem 2.5rem;
-      }
-      .hero h1 {
-        font-size: 2.25rem;
-      }
-      .hero p {
-        font-size: 1.05rem;
-      }
-      main {
-        padding: 2rem 1rem 3.5rem;
-      }
-      .section-title {
-        font-size: 1.65rem;
-      }
-      .grid-2, .grid-3 {
-        grid-template-columns: 1fr;
-      }
-      .about-hero {
-        padding: 2rem 1.25rem;
-      }
-      .contact-box {
-        padding: 2.5rem 1.25rem;
-      }
+    @media (max-width: 900px) {
+      .col-span-8, .col-span-6, .col-span-4 { grid-column: span 12; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .developer-card { flex-direction: column; align-items: flex-start; }
+      .nav-menu { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: 3.5rem 1rem 2.5rem; }
+      .hero h1 { font-size: 2.25rem; }
+      .dev-profile-left { flex-direction: column; align-items: flex-start; }
+      .footer-content { flex-direction: column; text-align: center; }
+      .matrix-table th, .matrix-table td { padding: 0.75rem; font-size: 0.85rem; }
     }
   </style>
 </head>
-<body>
+<body class="bg-grid-pattern">
 
-  <!-- Navigation Bar -->
-  <nav>
-    <div class="logo" onclick="showTab('products')">
-      Utharam<span>.</span>
-    </div>
-    <ul>
-      <li><a onclick="showTab('products')" id="tab-products" class="active">Products &amp; Solutions</a></li>
-      <li><a onclick="showTab('pipeline')" id="tab-pipeline">Pipeline</a></li>
-      <li><a onclick="showTab('about')" id="tab-about">About</a></li>
-      <li><a onclick="showTab('contact')" id="tab-contact">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="#" class="brand" aria-label="Utharam Home">
+        <div class="brand-mark">U</div>
+        <div class="brand-name">Utharam<span>.</span></div>
+      </a>
 
-  <!-- Hero Banner -->
-  <header class="hero">
-    <div class="hero-container">
-      <div class="tagline">
-        <span>✨</span> Simple Solutions for Complex Problems
+      <!-- Desktop Nav Anchors -->
+      <ul class="nav-menu">
+        <li><a href="#products" class="nav-link active">Products</a></li>
+        <li><a href="#standard" class="nav-link">The Standard</a></li>
+        <li><a href="#pipeline" class="nav-link">Pipeline</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- Theme & Action Tools -->
+      <div class="header-actions">
+        <button id="theme-toggle" class="icon-btn" onclick="toggleTheme()" title="Toggle Dark/Light mode" aria-label="Toggle theme">
+          <!-- Moon Icon -->
+          <svg id="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+          <!-- Sun Icon -->
+          <svg id="theme-icon-sun" style="display:none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path><path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path><path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </button>
+
+        <a href="https://github.com/Utharam" target="_blank" rel="noopener noreferrer" class="icon-btn" title="View GitHub" aria-label="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+            <path d="M9 18c-4.51 2-5-2-7-2"></path>
+          </svg>
+        </a>
       </div>
-      <h1>Utharam</h1>
-      <p>Building practical, offline-first software designed for clarity, control, and real-world accounting workflows.</p>
     </div>
   </header>
 
-  <!-- Main Content Body -->
-  <main>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span>Client-Side Financial Runtimes • Zero Cloud Uploads</span>
+      </div>
+      <h1>Simple Solutions for Complex Problems.</h1>
+      <p class="lead">
+        Building practical, offline-first software designed for clarity, control, and real-world accounting workflows. High-performance tools engineered by financial practitioners.
+      </p>
 
-    <!-- Tab 1: Products & Solutions -->
-    <section class="tab-content active" id="products">
+      <!-- Trust Metrics Bar -->
+      <div class="hero-trust-bar">
+        <div class="trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>100% Client-Side In-Browser Execution</span>
+        </div>
+        <div class="trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>Zero Server Telemetry • Private by Default</span>
+        </div>
+        <div class="trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>Sub-Millisecond Offline Performance</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="site-content">
+
+    <!-- Section 1: Active Product Suite (Bento Grid) -->
+    <section id="products" class="content-section">
       <div class="section-header">
-        <h2 class="section-title">Our Products and Solutions</h2>
-        <p class="section-subtitle">Purpose-built web and desktop tools engineered for speed, privacy, and operational clarity.</p>
+        <div class="section-eyebrow">Flagship Suite</div>
+        <h2 class="section-title">Products &amp; Solutions</h2>
+        <p class="section-subtitle">
+          Engineered for financial auditors, accountants, and corporate operators who need absolute speed, zero-knowledge privacy, and zero feature bloat.
+        </p>
       </div>
 
-      <div class="grid-2">
+      <!-- Domain Filters -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterCategory('all', this)">All Tools (6)</button>
+        <button class="filter-btn" onclick="filterCategory('audit', this)">Audit &amp; Spreadsheets (3)</button>
+        <button class="filter-btn" onclick="filterCategory('accounting', this)">Accounting &amp; Tax (2)</button>
+        <button class="filter-btn" onclick="filterCategory('desktop', this)">Desktop &amp; Workflow (1)</button>
+      </div>
+
+      <!-- 6-Product Symmetrical Bento Showcase -->
+      <div class="bento-grid">
         
-        <!-- AgroShop Manager -->
-        <article class="product-card">
-          <div class="product-info">
-            <div class="card-tags">
-              <span class="tag">Billing &amp; Inventory</span>
-              <span class="tag">GST Compliant</span>
-              <span class="tag">Offline-First PWA</span>
+        <!-- CARD 1: SheetHound (Flagship) -->
+        <article class="product-card col-span-6" data-category="audit">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="SheetHound Watchdog">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m10 5 1.5-3h3L16 5"></path>
+                  <path d="M8.5 8.5C7 9.5 6 11 6 13c0 4 3.5 7 8 7s8-3 8-7c0-2-1-3.5-2.5-4.5"></path>
+                  <circle cx="10" cy="13" r="1.5"></circle>
+                  <circle cx="16" cy="13" r="1.5"></circle>
+                  <path d="M13 16a2 2 0 0 1-2-1"></path>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag accent">New</span>
+                <span class="pill-tag">Ghost Links</span>
+                <span class="pill-tag">#REF! Hunter</span>
+                <span class="pill-tag">Hidden XML Tabs</span>
+              </div>
             </div>
-            <h3>AgroShop Manager</h3>
-            <p>A GST-compliant billing and inventory system designed specifically for Kerala agro retailers. Handles farmer purchases with reverse charge, equipment leases, customer advances, B2B resales, and offline-first web architecture.</p>
+
+            <h3 class="product-title">SheetHound</h3>
+            <div class="product-subtitle">The Loyal Spreadsheet Watchdog</div>
+            <p class="product-desc">
+              Pre-flight workbook forensics before hitting Send. Deep-scans spreadsheets for broken external file paths, cascading `#REF!` dependencies, `xlSheetVeryHidden` XML sheets, stray data islands, and typography hygiene.
+            </p>
+
+            <div class="card-meta-preview">
+              <span>● In-Browser XML &amp; ZIP Parser • Zero Cloud Uploads • 6 Forensic Diagnostic Engines</span>
+            </div>
           </div>
-          <div class="card-action">
-            <a href="https://agroshopmanager.netlify.app/" class="btn" target="_blank" rel="noopener noreferrer">
-              Open App <span>→</span>
+
+          <div class="card-actions">
+            <a href="https://sheethound.utharam.workers.dev/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Launch SheetHound
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
           </div>
         </article>
 
-        <!-- LedgerDuck -->
-        <article class="product-card">
-          <div class="product-info">
-            <div class="card-tags">
-              <span class="tag">SQL Workspace</span>
-              <span class="tag">Audit Analytics</span>
-              <span class="tag">DuckDB-Wasm</span>
-              <span class="tag">Zero Knowledge</span>
+        <!-- CARD 2: LedgerDuck (Flagship) -->
+        <article class="product-card col-span-6" data-category="audit">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="DuckDB-Wasm Analytics">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M3 5v14a9 3 0 0 0 18 0V5"></path>
+                  <path d="M3 12a9 3 0 0 0 18 0"></path>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag accent">DuckDB-Wasm</span>
+                <span class="pill-tag">SQL Workspace</span>
+                <span class="pill-tag">Audit Analytics</span>
+                <span class="pill-tag">Zero Knowledge</span>
+              </div>
             </div>
-            <h3>LedgerDuck</h3>
-            <p>Zero-knowledge, privacy-first SQL investigation workspace for financial auditors and accountants. 100% in-browser analytics powered by DuckDB-Wasm.</p>
+
+            <h3 class="product-title">LedgerDuck</h3>
+            <div class="product-subtitle">SQL Investigation Workspace for Financial Auditors</div>
+            <p class="product-desc">
+              High-speed in-browser SQL querying across multi-gigabyte General Ledger exports, journal entries, and bank statements without a database server. Powered directly by DuckDB compiled to WebAssembly.
+            </p>
+
+            <div class="card-meta-preview">
+              <span>● DuckDB-Wasm In-Memory Engine • Query Parquet/CSV • Client-Side Security</span>
+            </div>
           </div>
-          <div class="card-action">
-            <a href="https://utharam.github.io/LedgerDuck/" class="btn" target="_blank" rel="noopener noreferrer">
-              Open App <span>→</span>
+
+          <div class="card-actions">
+            <a href="https://utharam.github.io/LedgerDuck/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Launch LedgerDuck
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
           </div>
         </article>
 
-        <!-- Narration Generator -->
-        <article class="product-card">
-          <div class="product-info">
-            <div class="card-tags">
-              <span class="tag">Accounting Tool</span>
-              <span class="tag">Automation</span>
-              <span class="tag">Browser Native</span>
+        <!-- CARD 3: Excel Cleaner / SheetMonkey -->
+        <article class="product-card col-span-6" data-category="audit">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="ERP Sanitizer">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v18"></path>
+                  <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                  <path d="M3 9h18"></path>
+                  <path d="M3 15h18"></path>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag">Data Sanitizer</span>
+                <span class="pill-tag">Rule Engine</span>
+                <span class="pill-tag">Regex Coercion</span>
+              </div>
             </div>
-            <h3>Narration Generator</h3>
-            <p>Automate narration generation for recurring accounting transactions like daily rollover deposits, prepaid expense splits, and instant number-to-text conversion for cheques.</p>
+
+            <h3 class="product-title">Excel Cleaner</h3>
+            <div class="product-subtitle">Zero-Backend Dirty ERP Export Sanitizer</div>
+            <p class="product-desc">
+              Instant one-click remediation for messy accounting spreadsheets: eliminates non-breaking web spaces, coerces text-stored figures into real numbers for `=SUM()`, normalizes erratic date stamps, and runs compound conditional categorization rules.
+            </p>
           </div>
-          <div class="card-action">
-            <a href="https://utharam.github.io/narration-generator/" class="btn" target="_blank" rel="noopener noreferrer">
-              Open App <span>→</span>
+
+          <div class="card-actions">
+            <a href="https://utharam.github.io/excel-cleaner/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Open App
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
           </div>
         </article>
 
-        <!-- Excel Cleaner -->
-        <article class="product-card">
-          <div class="product-info">
-            <div class="card-tags">
-              <span class="tag">Data Formatting</span>
-              <span class="tag">Rule Engine</span>
-              <span class="tag">Privacy-First</span>
-              <span class="tag">Zero Backend</span>
+        <!-- CARD 4: AgroShop Manager -->
+        <article class="product-card col-span-6" data-category="accounting">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="Kerala GST Billing PWA">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                  <path d="M3 6h18"></path>
+                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag">GST Compliant</span>
+                <span class="pill-tag">Offline-First PWA</span>
+                <span class="pill-tag">Agro Retail</span>
+              </div>
             </div>
-            <h3>Excel Cleaner</h3>
-            <p>A privacy-first, zero-backend browser application — a one-click solution for fixing messy number and date formats, cleaning transaction data, and flagging entries based on custom rules.</p>
+
+            <h3 class="product-title">AgroShop Manager</h3>
+            <div class="product-subtitle">Kerala Agro Retail GST Billing &amp; Inventory PWA</div>
+            <p class="product-desc">
+              Specialized point-of-sale and inventory system for agricultural input merchants. Natively handles farmer unregistered purchases with GST reverse charges, equipment rental ledgers, customer advances, and seamless offline connectivity.
+            </p>
           </div>
-          <div class="card-action">
-            <a href="https://utharam.github.io/excel-cleaner/" class="btn" target="_blank" rel="noopener noreferrer">
-              Open App <span>→</span>
+
+          <div class="card-actions">
+            <a href="https://agroshopmanager.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Launch App
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
           </div>
         </article>
 
-        <!-- Main-Deck -->
-        <article class="product-card">
-          <div class="product-info">
-            <div class="card-tags">
-              <span class="tag">Personal Control Surface</span>
-              <span class="tag">Local-First</span>
-              <span class="tag">Desktop</span>
+        <!-- CARD 5: Narration Generator -->
+        <article class="product-card col-span-6" data-category="accounting">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="Voucher Narration Generator">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" x2="8" y1="13" y2="13"></line>
+                  <line x1="16" x2="8" y1="17" y2="17"></line>
+                  <line x1="10" x2="8" y1="9" y2="9"></line>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag">Accounting Tool</span>
+                <span class="pill-tag">GL Automation</span>
+                <span class="pill-tag">Browser Native</span>
+              </div>
             </div>
-            <h3>Main-Deck</h3>
-            <p>Main Deck by Utharam is a minimal, local-first personal control surface designed for corporate desktop users. Rather than trying to replace heavy tools like ERPs, spreadsheets, or email clients, it sits calmly above them as a central converging point to organize priorities.</p>
+
+            <h3 class="product-title">Narration Generator</h3>
+            <div class="product-subtitle">Standardized General Ledger Journal Narrations</div>
+            <p class="product-desc">
+              Automates error-free narration strings for recurring transactions: daily rollover bank deposits, multi-period prepaid expense amortizations, loan interest accruals, and instant English/Indian currency-to-words for cheques.
+            </p>
           </div>
-          <div class="card-action">
-            <a href="https://utharam.github.io/Main-Deck/" class="btn" target="_blank" rel="noopener noreferrer">
-              Open App <span>→</span>
+
+          <div class="card-actions">
+            <a href="https://utharam.github.io/narration-generator/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Open Utility
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- CARD 6: Main-Deck -->
+        <article class="product-card col-span-6" data-category="desktop">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="Personal Desktop Surface">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                  <line x1="8" x2="16" y1="21" y2="21"></line>
+                  <line x1="12" x2="12" y1="17" y2="21"></line>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag">Personal Control</span>
+                <span class="pill-tag">Local-First</span>
+                <span class="pill-tag">Desktop</span>
+              </div>
+            </div>
+
+            <h3 class="product-title">Main-Deck</h3>
+            <div class="product-subtitle">Local-First Personal Desktop Control Surface</div>
+            <p class="product-desc">
+              A minimalist operational companion for corporate desk workers. Rather than adding another bloated workspace, Main-Deck acts as a quiet desktop converging layer to coordinate daily priorities, quick balances, and critical workflows.
+            </p>
+          </div>
+
+          <div class="card-actions">
+            <a href="https://utharam.github.io/Main-Deck/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Launch Surface
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
           </div>
         </article>
@@ -684,99 +1242,243 @@
       </div>
     </section>
 
-    <!-- Tab 2: Pipeline -->
-    <section class="tab-content" id="pipeline">
+    <!-- Section 2: The Local-First Standard (Trust & Architecture) -->
+    <section id="standard" class="content-section">
       <div class="section-header">
+        <div class="section-eyebrow">Architectural Philosophy</div>
+        <h2 class="section-title">The Local-First Standard</h2>
+        <p class="section-subtitle">
+          Why we strictly build client-side software. Take the computation to your browser, never your sensitive financial ledgers to an unknown cloud server.
+        </p>
+      </div>
+
+      <div class="standard-card">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">Operational Dimension</th>
+              <th style="width: 35%;">Traditional Cloud SaaS</th>
+              <th style="width: 40%;" class="highlight">The Utharam Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Data Privacy &amp; Security</strong></td>
+              <td>Sensitive GL ledgers and PII uploaded to remote third-party databases.</td>
+              <td class="utharam-cell">
+                <div class="badge-diff">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="var(--accent)"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>100% Client-Side In-Memory. 0 Cloud Uploads.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Execution Latency</strong></td>
+              <td>Network round-trips, file upload wait bars, and API rate limits.</td>
+              <td class="utharam-cell">
+                <div class="badge-diff">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="var(--accent)"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Sub-millisecond Wasm &amp; Web Worker calculations.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Offline Continuity</strong></td>
+              <td>Dead on arrival when internet drops or cloud services experience downtime.</td>
+              <td class="utharam-cell">
+                <div class="badge-diff">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="var(--accent)"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Full offline capability via Service Workers &amp; PWAs.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Pricing &amp; Telemetry</strong></td>
+              <td>Opaque monthly seat subscriptions, trackers, and vendor lock-in.</td>
+              <td class="utharam-cell">
+                <div class="badge-diff">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="var(--accent)"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Zero trackers, zero ads, free standalone practitioner utilities.</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3: Upcoming Tools & Lab Pipeline -->
+    <section id="pipeline" class="content-section">
+      <div class="section-header">
+        <div class="section-eyebrow">Under Active Engineering</div>
         <h2 class="section-title">Projects in Pipeline</h2>
-        <p class="section-subtitle">Upcoming tools currently under active design and development.</p>
+        <p class="section-subtitle">
+          Next-generation governance, process automation, and administrative tools currently taking shape in the lab.
+        </p>
       </div>
 
-      <div class="grid-2">
+      <div class="pipeline-grid">
+
+        <!-- Flowbook -->
         <article class="pipeline-card">
           <div>
-            <div class="pipeline-header">
-              <h3>HR Dashboard</h3>
-              <span class="status-badge"><span class="status-dot"></span> Planned</span>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">Flowbook</h3>
+              <span class="pipeline-status active-dev">● Active R&amp;D</span>
             </div>
-            <p>A centralized dashboard for managing employee data, attendance, payroll, and performance metrics — designed for small organizations that need clarity without complexity.</p>
+            <div style="font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-bottom: 0.75rem; font-family: var(--font-mono);">
+              A New Philosophy • Hybrid Event + Transaction Accounting
+            </div>
+            <p style="font-size: 0.925rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem;">
+              Rethinking financial ledgers from first principles. Flowbook explores a hybrid accounting model that marries real-time event stream processing with classical double-entry mechanics. Operational events are captured natively as they happen at the source, while preserving immutable zero-sum audit invariants and recursive Chart of Accounts integrity.
+            </p>
+          </div>
+          <div>
+            <span class="btn btn-secondary" style="width: 100%; justify-content: center; opacity: 0.75; cursor: default; gap: 8px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Private Architecture &amp; R&amp;D
+            </span>
           </div>
         </article>
 
+        <!-- Corporate Structure Builder -->
         <article class="pipeline-card">
           <div>
-            <div class="pipeline-header">
-              <h3>Organization Chart Builder</h3>
-              <span class="status-badge"><span class="status-dot"></span> Planned</span>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">Org Chart Builder</h3>
+              <span class="pipeline-status">● In Development</span>
             </div>
-            <p>A visual tool to create, edit, and export organization charts. Drag-and-drop simplicity with high-resolution export options for PDF and PNG formats.</p>
+            <div style="font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-bottom: 0.75rem; font-family: var(--font-mono);">
+              Visual Hierarchy • Cap Table Sync • PDF Export
+            </div>
+            <p style="font-size: 0.925rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem;">
+              A specialized visual builder to diagram and audit corporate parent-subsidiary holdings, ultimate beneficial owners (UBO), and department hierarchies. Supports high-resolution vector PDF and PNG exports for board meetings.
+            </p>
           </div>
-          <div class="card-action" style="margin-top: 1.25rem;">
-            <a href="https://github.com/Utharam/Corporate-structure-builder" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
-              View on GitHub <span>→</span>
+          <div>
+            <a href="https://github.com/Utharam/Corporate-structure-builder" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; justify-content: center;">
+              Inspect on GitHub
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
             </a>
           </div>
         </article>
+
+        <!-- HR Dashboard -->
+        <article class="pipeline-card">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">HR Dashboard</h3>
+              <span class="pipeline-status">● Planned</span>
+            </div>
+            <div style="font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-bottom: 0.75rem; font-family: var(--font-mono);">
+              Employee Ops • Attendance • Payroll Sync
+            </div>
+            <p style="font-size: 0.925rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem;">
+              A lean operational dashboard for tracking attendance records, statutory payroll deductions, and employee lifecycles. Built for lean organizations that need statutory compliance without enterprise HR software bloat.
+            </p>
+          </div>
+          <div>
+            <span class="btn btn-secondary" style="width: 100%; justify-content: center; opacity: 0.6; cursor: not-allowed;">
+              Research Phase
+            </span>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <!-- Tab 3: Professional About -->
-    <section class="tab-content" id="about">
+    <!-- Section 4: About Studio & Subtle Developer Profile -->
+    <section id="about" class="content-section">
       <div class="section-header">
+        <div class="section-eyebrow">Origin &amp; Craft</div>
         <h2 class="section-title">About Utharam</h2>
-        <p class="section-subtitle">Bridging domain expertise in accounting with practical, offline-first software engineering.</p>
+        <p class="section-subtitle">
+          Bridging domain depth in accounting with rigorous, offline-first software engineering.
+        </p>
       </div>
 
-      <div class="about-hero">
+      <div class="about-lead-box">
         <h3>Building Software That Just Works.</h3>
-        <p>At Utharam, we build practical, offline-first software designed for small businesses, accountants, and corporate desktop users. We focus on solving high-friction operational challenges with privacy-first architecture and minimal, reliable tools.</p>
+        <p>
+          At Utharam, we build practical software for small businesses, accountants, and finance teams. Most modern SaaS products suffer from feature bloat, latency, and dangerous cloud dependency: sensitive balance sheets and transaction ledgers get transmitted to remote databases just to perform basic calculations.
+        </p>
+        <p>
+          We take a fundamentally different approach. We believe client-side runtimes (Wasm, modern browser engines, local-first architectures) have reached the maturity where enterprise-grade financial analytics and data sanitization can happen entirely inside your local device with zero data leakage.
+        </p>
       </div>
 
-      <div class="grid-3">
-        <div class="pillar-card">
-          <div class="pillar-icon">🔒</div>
-          <h4>Privacy &amp; Local-First</h4>
-          <p>Your financial data stays on your device. We design zero-backend, browser-native, and local-first applications that ensure absolute privacy and work without internet dependency.</p>
+      <div class="pillars-grid">
+        <div class="pillar-box">
+          <h4>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="var(--accent)"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Privacy &amp; Local-First
+          </h4>
+          <p>
+            Your financial data never touches an external server. Zero-backend, browser-native applications that ensure complete client confidentiality and function 100% offline.
+          </p>
         </div>
 
-        <div class="pillar-card">
-          <div class="pillar-icon">⚡</div>
-          <h4>Practical Utility</h4>
-          <p>We eliminate unnecessary feature bloat. Every tool is crafted to remove manual administrative overhead, simplify reconciliation, and deliver instant operational feedback.</p>
+        <div class="pillar-box">
+          <h4>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="var(--accent)"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            Practical Utility
+          </h4>
+          <p>
+            We eliminate unnecessary features. Every single tool is crafted to remove manual clerical friction, automate reconciliations, and return immediate, actionable feedback.
+          </p>
         </div>
 
-        <div class="pillar-card">
-          <div class="pillar-icon">📊</div>
-          <h4>Built by an Accountant</h4>
-          <p>Created with firsthand understanding of real-world compliance, ledger entries, and business workflows. Software built by an accountant, for accountants and business owners.</p>
+        <div class="pillar-box">
+          <h4>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="var(--accent)"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            The Practitioner's Edge
+          </h4>
+          <p>
+            Created with firsthand understanding of real-world compliance, ledger entries, and audit trail requirements. Software built by an accountant, for accountants.
+          </p>
         </div>
       </div>
 
-      <div class="about-footer-note">
-        "Simple, reliable solutions crafted to bring order and clarity to daily business operations."
+      <!-- Subtle Developer Profile -->
+      <div class="developer-card">
+        <div class="dev-profile-left">
+          <div class="dev-avatar">SCM</div>
+          <div class="dev-meta">
+            <h4>Crafted by Sam C Maliyakel</h4>
+            <div class="dev-role">Senior Finance &amp; Family Office Specialist • Domain Tooling Builder</div>
+            <p class="dev-summary">
+              10+ years managing full-cycle multi-entity accounting, $1B+ multi-asset portfolio tracking, and treasury operations in single-family office environments. Designing client-side, zero-knowledge tools that resolve structural financial friction.
+            </p>
+          </div>
+        </div>
+        <div class="dev-action">
+          <a href="https://utharam.github.io/about-me-samcm/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            Read Background &amp; Essays
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+          </a>
+        </div>
       </div>
+
     </section>
 
-    <!-- Tab 4: Contact -->
-    <section class="tab-content" id="contact">
+    <!-- Section 5: Direct Contact -->
+    <section id="contact" class="content-section">
       <div class="contact-box">
         <h2>Get in Touch</h2>
-        <p>Have a question about our products or need a custom solution for your business? Reach out to us.</p>
-        
-        <div class="contact-grid">
-          <a href="mailto:contactutharam@gmail.com" class="contact-card">
-            <span class="contact-card-icon">✉️</span>
-            <div class="contact-card-text">
-              <span>Email Us</span>
-              <strong>contactutharam@gmail.com</strong>
-            </div>
-          </a>
+        <p>
+          Have a question about our tools, need a custom offline-first accounting solution, or want to collaborate on financial domain engineering? Reach out directly.
+        </p>
 
-          <a href="https://github.com/Utharam" target="_blank" rel="noopener noreferrer" class="contact-card">
-            <span class="contact-card-icon">💻</span>
-            <div class="contact-card-text">
-              <span>GitHub</span>
-              <strong>github.com/Utharam</strong>
-            </div>
+        <div class="contact-actions">
+          <button class="contact-card-btn" onclick="copyEmail('contactutharam@gmail.com')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+            <span>contactutharam@gmail.com</span>
+            <span style="font-size: 0.75rem; opacity: 0.75; margin-left: 4px;">(Copy)</span>
+          </button>
+
+          <a href="https://github.com/Utharam" target="_blank" rel="noopener noreferrer" class="contact-card-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+            <span>github.com/Utharam</span>
           </a>
         </div>
       </div>
@@ -784,27 +1486,97 @@
 
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; <span id="year"></span> Utharam. All rights reserved.</p>
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div>
+        &copy; <span id="year"></span> Utharam. Simple Solutions for Complex Problems.
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 0.8rem;">
+        100% Client-Side • Neo-Swiss Financial Craft • Kerala &amp; Global
+      </div>
+    </div>
   </footer>
 
-  <!-- Tab Switch Script -->
+  <!-- Toast Notification -->
+  <div id="toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="var(--accent)"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <span id="toast-text">Email copied to clipboard!</span>
+  </div>
+
+  <!-- Interactive Scripts -->
   <script>
+    // Copyright Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    function showTab(tabName) {
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      document.querySelectorAll('nav a').forEach(t => t.classList.remove('active'));
-      
-      const targetContent = document.getElementById(tabName);
-      const targetTab = document.getElementById('tab-' + tabName);
-      
-      if (targetContent) targetContent.classList.add('active');
-      if (targetTab) targetTab.classList.add('active');
-      
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Theme Switcher
+    function updateThemeIcons() {
+      const isDark = document.documentElement.classList.contains('dark');
+      document.getElementById('theme-icon-moon').style.display = isDark ? 'none' : 'block';
+      document.getElementById('theme-icon-sun').style.display = isDark ? 'block' : 'none';
     }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      updateThemeIcons();
+    }
+    updateThemeIcons();
+
+    // Product Category Filtering
+    function filterCategory(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.product-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Copy to Clipboard Toast
+    function copyEmail(email) {
+      navigator.clipboard.writeText(email).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2500);
+      }).catch(err => {
+        window.location.href = 'mailto:' + email;
+      });
+    }
+
+    // ScrollSpy active indicator in Nav
+    const sections = document.querySelectorAll('section.content-section, header.hero');
+    const navLinks = document.querySelectorAll('ul.nav-menu a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (current && link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
   </script>
 
 </body>
