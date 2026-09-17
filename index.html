@@ -4,18 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Utharam — Simple Solutions for Complex Problems</title>
-  <meta name="description" content="Utharam builds practical, offline-first software designed for clarity, control, and real-world accounting workflows. Client-side, zero-knowledge financial tools.">
+  <meta name="description" content="Utharam builds practical, offline-first software designed for clarity, control, and real-world accounting workflows. Client-side, zero-knowledge financial tools. Free, no signup, no uploads.">
+  <link rel="canonical" href="https://utharam.github.io/">
+  <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#090d14" media="(prefers-color-scheme: dark)">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Utharam — Sam C Maliyakel">
+
+  <!-- Favicon: inline SVG to avoid 404 -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23059669'/%3E%3Ctext x='16' y='22' font-family='monospace' font-weight='800' font-size='18' fill='white' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23059669'/%3E%3Ctext x='16' y='22' font-family='monospace' font-weight='800' font-size='18' fill='white' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Utharam">
   <meta property="og:title" content="Utharam — Simple Solutions for Complex Problems">
-  <meta property="og:description" content="Purpose-built web and desktop tools engineered for speed, privacy, and operational accounting clarity.">
+  <meta property="og:description" content="Free offline-first tools for auditors & accountants: spreadsheet forensics, SQL ledger analytics, GST simulators. No signup, no uploads.">
   <meta property="og:url" content="https://utharam.github.io/">
+  <meta property="og:image" content="https://utharam.github.io/og-cover.png">
+  <meta property="og:image:alt" content="Utharam product suite preview">
 
-  <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Utharam — Offline-first tools for accountants">
+  <meta name="twitter:description" content="7 free client-side tools. Zero uploads, zero trackers, works offline.">
+  <meta name="twitter:image" content="https://utharam.github.io/og-cover.png">
+
+  <!-- Structured data: portfolio of free tools -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Utharam",
+    "url": "https://utharam.github.io/",
+    "slogan": "Simple Solutions for Complex Problems",
+    "founder": { "@type": "Person", "name": "Sam C Maliyakel" },
+    "sameAs": ["https://github.com/Utharam"]
+  }
+  </script>
+
+  <!-- Google Fonts: subset weights actually used (was 12 weights, now 8) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 
   <!-- Theme Flash Prevention -->
   <script>
@@ -387,7 +418,7 @@
       padding: 0.4rem 0.95rem;
       border-radius: var(--radius-full);
       font-size: 0.825rem;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.15s ease;
       font-family: var(--font-mono);
@@ -434,6 +465,7 @@
     /* Asymmetrical Column Spans */
     .col-span-12 { grid-column: span 12; }
     .col-span-7  { grid-column: span 7; }
+    .col-span-6  { grid-column: span 6; }
     .col-span-5  { grid-column: span 5; }
     .col-span-4  { grid-column: span 4; }
 
@@ -982,9 +1014,110 @@
       transform: translateY(0);
     }
 
+    /* Accessibility + portfolio polish */
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--text-main); color: var(--bg-page);
+      padding: 0.6rem 1rem; border-radius: 0 0 8px 0;
+      z-index: 1000; font-weight: 700; font-size: 0.875rem; text-decoration: none;
+    }
+    .skip-link:focus { left: 0; }
+
+    ::selection { background: var(--accent); color: #fff; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-light);
+      padding: 0.1em 0.35em; border-radius: 5px;
+      white-space: nowrap;
+    }
+    .mini-chip-preview code { background: transparent; border: none; padding: 0; }
+
+    /* Hero CTAs */
+    .hero-actions {
+      display: flex; justify-content: center; align-items: center;
+      gap: 0.75rem; flex-wrap: wrap; margin: 0 auto 1.75rem;
+    }
+    .btn-lg { padding: 0.8rem 1.6rem; font-size: 0.95rem; border-radius: 12px; }
+    .btn-primary {
+      box-shadow: 0 6px 16px -6px rgba(5,150,105,0.45);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px -8px rgba(5,150,105,0.55); }
+    .btn:active { transform: translateY(0); }
+    .hero-micro {
+      font-family: var(--font-mono); font-size: 0.78rem;
+      color: var(--text-subtle); margin: 0 auto 2rem;
+      letter-spacing: 0.01em;
+    }
+    .hero-micro strong { color: var(--accent-deep); font-weight: 700; }
+    .dark .hero-micro strong { color: var(--accent); }
+
+    /* Bento dense flow so filtering doesn't leave holes */
+    .bento-grid { grid-auto-flow: dense; }
+    .product-card { overflow: hidden; }
+    .product-card::after {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent 70%);
+      opacity: 0; transition: opacity 0.2s ease;
+    }
+    .product-card:hover::after { opacity: 1; }
+    .product-card:hover { border-color: var(--border-hover); }
+
+    .card-meta {
+      display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+      font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-subtle);
+      margin-bottom: 1.1rem;
+    }
+    .card-meta .dot { opacity: 0.5; }
+    .card-meta strong { color: var(--accent-deep); }
+    .dark .card-meta strong { color: var(--accent); }
+
+    .card-actions { flex-wrap: wrap; }
+    .card-actions .btn-secondary { text-decoration: none; }
+    .link-arrow { font-weight: 700; }
+
+    .filter-btn[aria-pressed="true"], .filter-btn.active {
+      background: var(--text-main); color: var(--bg-page); border-color: var(--text-main); font-weight: 600;
+    }
+
+    /* Comparison table scroll wrapper */
+    .matrix-scroll { overflow-x: auto; border-radius: inherit; }
+    .matrix-table { min-width: 640px; }
+    .matrix-note {
+      padding: 0.9rem 1.5rem; font-size: 0.8rem; color: var(--text-subtle);
+      border-top: 1px dashed var(--border-light); font-family: var(--font-mono);
+    }
+
+    .pipeline-card, .pillar-box, .about-lead-box, .developer-card { transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+    .pipeline-card:hover, .pillar-box:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--border-hover); }
+
+    .contact-sub { margin-top: 1.25rem; font-size: 0.85rem !important; margin-bottom: 0 !important; }
+    .contact-sub a { color: #fff; font-weight: 600; }
+    .contact-sub a:hover { color: var(--accent); }
+
+    .footer-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { color: var(--text-subtle); text-decoration: none; font-weight: 500; }
+    .footer-links a:hover { color: var(--text-main); text-decoration: underline; text-underline-offset: 3px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; width: 100%; }
+    .footer-trust { font-family: var(--font-mono); font-size: 0.78rem; }
+
+    #toast { max-width: calc(100vw - 3rem); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      html { scroll-behavior: auto; }
+    }
+
     /* Responsive */
     @media (max-width: 960px) {
-      .col-span-7, .col-span-5, .col-span-4 { grid-column: span 12; }
+      .col-span-7, .col-span-6, .col-span-5, .col-span-4 { grid-column: span 12; }
       .pillars-grid { grid-template-columns: 1fr; }
       .developer-card { flex-direction: column; align-items: flex-start; }
       .nav-menu { display: none; }
@@ -993,24 +1126,29 @@
     @media (max-width: 640px) {
       .hero { padding: 4rem 1rem 3rem; }
       .hero h1 { font-size: 2.25rem; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
       .dev-profile-left { flex-direction: column; align-items: flex-start; }
       .footer-content { flex-direction: column; text-align: center; }
+      .footer-bottom { flex-direction: column; text-align: center; justify-content: center; }
       .matrix-table th, .matrix-table td { padding: 0.75rem; font-size: 0.85rem; }
-      .telemetry-strip { border-radius: var(--radius-lg); flex-direction: column; align-items: flex-start; }
+      .telemetry-strip { border-radius: var(--radius-lg); flex-direction: column; align-items: stretch; gap: 0.65rem; width: 100%; }
+      .contact-actions .contact-card-btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body class="bg-grid-pattern">
+  <a href="#main-content" class="skip-link">Skip to content</a>
 
   <!-- Sticky Header -->
   <header class="site-header">
     <div class="nav-container">
-      <a href="#" class="brand" aria-label="Utharam Home">
-        <div class="brand-mark">U</div>
+      <a href="#top" class="brand" aria-label="Utharam Home">
+        <div class="brand-mark" aria-hidden="true">U</div>
         <div class="brand-name">Utharam<span>.</span></div>
       </a>
 
       <!-- Desktop Nav Anchors -->
+      <nav aria-label="Primary">
       <ul class="nav-menu">
         <li><a href="#products" class="nav-link active">Products</a></li>
         <li><a href="#standard" class="nav-link">The Standard</a></li>
@@ -1018,16 +1156,17 @@
         <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
+      </nav>
 
       <!-- Theme & Action Tools -->
       <div class="header-actions">
-        <button id="theme-toggle" class="icon-btn" onclick="toggleTheme()" title="Toggle Dark/Light mode" aria-label="Toggle theme">
+        <button id="theme-toggle" class="icon-btn" title="Toggle Dark/Light mode" aria-label="Toggle theme">
           <!-- Moon Icon -->
-          <svg id="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg id="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
           </svg>
           <!-- Sun Icon -->
-          <svg id="theme-icon-sun" style="display:none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg id="theme-icon-sun" style="display:none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4"></circle>
             <path d="M12 2v2"></path><path d="M12 20v2"></path>
             <path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path>
@@ -1037,7 +1176,7 @@
         </button>
 
         <a href="https://github.com/Utharam" target="_blank" rel="noopener noreferrer" class="icon-btn" title="View GitHub Organization" aria-label="GitHub">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
             <path d="M9 18c-4.51 2-5-2-7-2"></path>
           </svg>
@@ -1047,38 +1186,51 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-glow"></div>
+  <section class="hero" id="top" aria-labelledby="hero-heading">
+    <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-inner">
       <div class="hero-badge">
-        <span class="pulse-dot"></span>
+        <span class="pulse-dot" aria-hidden="true"></span>
         <span>Client-Side Financial Runtimes • Zero Cloud Uploads</span>
       </div>
-      <h1>Simple Solutions for Complex Problems.</h1>
+      <h1 id="hero-heading">Simple Solutions for Complex Problems.</h1>
       <p class="lead">
-        Building practical, offline-first software designed for clarity, control, and real-world accounting workflows. High-performance tools engineered by an accountant for financial auditors, business owners, and corporate operators.
+        Free offline-first tools for auditors, accountants, and business owners — spreadsheet forensics, SQL ledger analytics, and GST utilities that run 100% in your browser. No signup, no uploads.
       </p>
+
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary btn-lg">
+          Explore 7 free tools
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+        </a>
+        <a href="https://sheethound.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg">
+          Launch SheetHound
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+        </a>
+      </div>
+      <p class="hero-micro"><strong>Free • No signup • Zero uploads</strong> &nbsp;·&nbsp; Works offline &nbsp;·&nbsp; Built by an accountant</p>
 
       <!-- Live Telemetry Strip -->
       <div class="telemetry-strip">
         <div class="telemetry-item">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          <span>Execution: <strong>&lt; 0.8ms (DuckDB-Wasm)</strong></span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>Execution: <strong>sub-ms local compute*</strong></span>
         </div>
         <div class="telemetry-item">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          <span>Cloud Transmit: <strong>0 Bytes (Zero Knowledge)</strong></span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>Cloud Transmit: <strong>0 bytes (files stay local)</strong></span>
         </div>
         <div class="telemetry-item">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-          <span>Offline Continuity: <strong>100% PWA &amp; In-Browser</strong></span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>Offline Continuity: <strong>PWA &amp; in-browser*</strong></span>
         </div>
       </div>
+      <p class="hero-micro" style="margin-top: 0.9rem; margin-bottom: 0;">* Illustrative local performance — varies by device &amp; file size. Verified by design: no uploads, no trackers.</p>
     </div>
   </section>
 
   <!-- Main Content Layout -->
-  <main class="site-content">
+  <main class="site-content" id="main-content">
 
     <!-- Section 1: Active Product Suite (Asymmetrical Bento Grid) -->
     <section id="products" class="content-section">
@@ -1091,11 +1243,11 @@
       </div>
 
       <!-- Domain Filters -->
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterCategory('all', this)">All Tools (6)</button>
-        <button class="filter-btn" onclick="filterCategory('audit', this)">Audit &amp; Forensics (3)</button>
-        <button class="filter-btn" onclick="filterCategory('accounting', this)">Accounting &amp; Tax (2)</button>
-        <button class="filter-btn" onclick="filterCategory('desktop', this)">Desktop &amp; Workflow (1)</button>
+      <div class="filter-bar" role="group" aria-label="Filter products by domain">
+        <button class="filter-btn active" data-filter="all" aria-pressed="true">All Tools</button>
+        <button class="filter-btn" data-filter="audit" aria-pressed="false">Audit &amp; Forensics</button>
+        <button class="filter-btn" data-filter="accounting" aria-pressed="false">Accounting &amp; Tax</button>
+        <button class="filter-btn" data-filter="desktop" aria-pressed="false">Desktop &amp; Workflow</button>
       </div>
 
       <!-- Asymmetrical Bento Grid -->
@@ -1125,7 +1277,7 @@
             <h3 class="product-title">SheetHound</h3>
             <div class="product-subtitle">The Loyal Spreadsheet Watchdog</div>
             <p class="product-desc">
-              Pre-flight workbook forensics before hitting Send. Deep-scans spreadsheets for broken external file paths, cascading `#REF!` dependencies, `xlSheetVeryHidden` XML sheets, stray data islands, and typography hygiene with zero server uploads.
+              Pre-flight workbook forensics before hitting Send. Deep-scans spreadsheets for broken external file paths, cascading <code>#REF!</code> dependencies, <code>xlSheetVeryHidden</code> XML sheets, stray data islands, and typography hygiene with zero server uploads.
             </p>
 
             <!-- Mini Forensic Diagnostic Preview -->
@@ -1149,11 +1301,13 @@
             </div>
           </div>
 
+          <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>100% in-browser</span><span class="dot">·</span><span>Flagship</span></div>
           <div class="card-actions">
             <a href="https://sheethound.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
               Launch SheetHound
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
+            <a href="#standard" class="btn btn-secondary">Why it's private</a>
           </div>
         </article>
 
@@ -1186,20 +1340,63 @@
               <div><span class="sql-kw">SELECT</span> gl_account, <span class="sql-fn">SUM</span>(debit - credit) <span class="sql-kw">AS</span> net_bal</div>
               <div><span class="sql-kw">FROM</span> read_parquet(<span class="sql-str">'ledger.parquet'</span>)</div>
               <div><span class="sql-kw">GROUP BY</span> 1 <span class="sql-kw">ORDER BY</span> 2 <span class="sql-kw">DESC</span>;</div>
-              <div class="sql-res">-- 1.2M records queried in 11ms via Wasm</div>
+              <div class="sql-res">-- e.g. 1.2M rows in ~11ms locally* (*device-dependent, in-browser)</div>
             </div>
           </div>
 
+          <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>DuckDB-Wasm · Offline</span></div>
           <div class="card-actions">
             <a href="https://utharam.github.io/LedgerDuck/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
               Launch LedgerDuck
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
+            <a href="#standard" class="btn btn-secondary">Why it's private</a>
           </div>
         </article>
 
-        <!-- CARD 3: Excel Cleaner (4 Columns) -->
-        <article class="product-card col-span-4" data-category="audit">
+        <!-- CARD 3: GST Interactive (6 Columns) -->
+        <article class="product-card col-span-6" data-category="accounting">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="GST Interactive Simulator">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
+                  <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
+                  <path d="M7 21h10"></path>
+                  <path d="M12 3v18"></path>
+                  <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag">Statutory Simulator</span>
+                <span class="pill-tag">ICAI Inter</span>
+              </div>
+            </div>
+
+            <h3 class="product-title">GST Interactive</h3>
+            <div class="product-subtitle">Statutory Simulator &amp; Study Notes</div>
+            <p class="product-desc">
+              Interactive simulators for GST double-entry ledgers, including Rule 86B cash limits, GSTR-3B set-off hierarchy, and ITC conditions. Paired with a 64-section statutory reference and Supreme Court case laws.
+            </p>
+
+            <div class="mini-chip-preview">
+              <span>Simulators: <strong>Rule 86B &bull; 3B Set-Off</strong></span>
+              <span style="color: var(--accent);">● 64 Provisions &bull; Case Laws</span>
+            </div>
+          </div>
+
+          <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>Study + simulator</span></div>
+          <div class="card-actions">
+            <a href="https://gstinteractive.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Launch GST Interactive
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+            </a>
+            <a href="#standard" class="btn btn-secondary">How it works offline</a>
+          </div>
+        </article>
+
+        <!-- CARD 4: Excel Cleaner (6 Columns) -->
+        <article class="product-card col-span-6" data-category="audit">
           <div>
             <div class="card-top">
               <div class="card-icon" title="ERP Sanitizer">
@@ -1219,7 +1416,7 @@
             <h3 class="product-title">Excel Cleaner</h3>
             <div class="product-subtitle">Dirty ERP Export Sanitizer</div>
             <p class="product-desc">
-              Instant one-click remediation for messy spreadsheets: strips non-breaking web spaces, coerces text figures into real numbers for `=SUM()`, and runs compound rules.
+              Instant one-click remediation for messy spreadsheets: strips non-breaking web spaces, coerces text figures into real numbers for <code>=SUM()</code>, and runs compound rules.
             </p>
 
             <div class="mini-chip-preview">
@@ -1228,16 +1425,18 @@
             </div>
           </div>
 
+          <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>1-click sanitize</span></div>
           <div class="card-actions">
             <a href="https://excel-cleaner.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-              Open App
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+              Launch Excel Cleaner
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
+            <a href="#standard" class="btn btn-secondary">Why it's private</a>
           </div>
         </article>
 
-        <!-- CARD 4: AgroShop Manager (4 Columns) -->
-        <article class="product-card col-span-4" data-category="accounting">
+        <!-- CARD 5: AgroShop Manager (6 Columns) -->
+        <article class="product-card col-span-6" data-category="accounting">
           <div>
             <div class="card-top">
               <div class="card-icon" title="Kerala GST Billing PWA">
@@ -1265,16 +1464,18 @@
             </div>
           </div>
 
+          <div class="card-meta"><span><strong>Free</strong> · PWA</span><span class="dot">·</span><span>Works offline in shop</span></div>
           <div class="card-actions">
             <a href="https://agroshopmanager.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-              Launch App
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+              Launch AgroShop Manager
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
+            <a href="#standard" class="btn btn-secondary">Offline PWA details</a>
           </div>
         </article>
 
-        <!-- CARD 5: Narration Generator (4 Columns) -->
-        <article class="product-card col-span-4" data-category="accounting">
+        <!-- CARD 6: Narration Generator (6 Columns) -->
+        <article class="product-card col-span-6" data-category="accounting">
           <div>
             <div class="card-top">
               <div class="card-icon" title="Voucher Narration Generator">
@@ -1304,15 +1505,17 @@
             </div>
           </div>
 
+          <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>Audit-ready narrations</span></div>
           <div class="card-actions">
             <a href="https://narration-generator.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-              Open Utility
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+              Launch Narration Generator
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
+            <a href="#standard" class="btn btn-secondary">Why it's private</a>
           </div>
         </article>
 
-        <!-- CARD 6: Main-Deck (Full-Width Anchor - 12 Columns) -->
+        <!-- CARD 7: Main-Deck (Full-Width Anchor - 12 Columns) -->
         <article class="product-card col-span-12" data-category="desktop" style="background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
             <div style="max-width: 780px;">
@@ -1325,15 +1528,19 @@
                 <span class="pill-tag">Local-First</span>
               </div>
               <div class="product-subtitle" style="margin-bottom: 0.5rem;">Personal Control Surface for Corporate Desktops</div>
-              <p class="product-desc" style="margin-bottom: 0;">
+              <p class="product-desc" style="margin-bottom: 0.9rem;">
                 A minimalist operational companion that sits calmly above heavy ERPs, spreadsheets, and email clients as a quiet desktop converging point to coordinate daily priorities, quick balances, and critical workflows.
               </p>
+              <div class="card-meta" style="margin-bottom: 0;"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>Local-first desktop surface</span></div>
             </div>
             <div>
+              <div class="card-actions" style="margin-top: 0;">
               <a href="https://main-deck.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">
-                Launch Main-Deck Surface
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+                Launch Main-Deck
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
               </a>
+              <a href="#standard" class="btn btn-secondary" style="padding: 0.75rem 1.25rem;">Local-first approach</a>
+              </div>
             </div>
           </div>
         </article>
@@ -1352,12 +1559,13 @@
       </div>
 
       <div class="standard-card">
+        <div class="matrix-scroll">
         <table class="matrix-table">
           <thead>
             <tr>
-              <th style="width: 25%;">Operational Dimension</th>
-              <th style="width: 35%;">Traditional Cloud SaaS</th>
-              <th style="width: 40%;" class="highlight">The Utharam Standard</th>
+              <th scope="col" style="width: 25%;">Operational Dimension</th>
+              <th scope="col" style="width: 35%;">Traditional Cloud SaaS</th>
+              <th scope="col" style="width: 40%;" class="highlight">The Utharam Standard</th>
             </tr>
           </thead>
           <tbody>
@@ -1403,6 +1611,8 @@
             </tr>
           </tbody>
         </table>
+        </div>
+        <div class="matrix-note">Design guarantee: calculations run in your browser (Wasm / JS workers). Closing the tab clears in-memory data. No accounts, no trackers.</div>
       </div>
     </section>
 
@@ -1429,14 +1639,14 @@
               A New Philosophy • Hybrid Event + Transaction Accounting
             </div>
             <p style="font-size: 0.925rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem;">
-              Rethinking financial ledgers from first principles. Flowbook explores a hybrid accounting model that marries real-time event stream processing with classical double-entry mechanics. Operational events are captured natively as they happen at the source, while preserving immutable zero-sum audit invariants (&sum; Base Amount = 0) and recursive Chart of Accounts integrity.
+              Rethinking financial ledgers from first principles. Flowbook explores a hybrid accounting model that marries real-time event stream processing with classical double-entry mechanics. Operational events are captured natively as they happen at the source, while preserving immutable zero-sum audit invariants (total debits = total credits) and recursive Chart of Accounts integrity.
             </p>
           </div>
           <div>
-            <span class="btn btn-secondary" style="width: 100%; justify-content: center; opacity: 0.8; cursor: default; gap: 8px;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-              Private Architecture &amp; R&amp;D
-            </span>
+            <a href="mailto:contactutharam@gmail.com?subject=Flowbook%20early%20access%20—%20notify%20me" class="btn btn-secondary" style="width: 100%; justify-content: center; gap: 8px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+              Notify me at launch
+            </a>
           </div>
         </article>
 
@@ -1477,9 +1687,9 @@
             </p>
           </div>
           <div>
-            <span class="btn btn-secondary" style="width: 100%; justify-content: center; opacity: 0.6; cursor: not-allowed;">
-              Research Phase
-            </span>
+            <a href="mailto:contactutharam@gmail.com?subject=HR%20Dashboard%20—%20notify%20me" class="btn btn-secondary" style="width: 100%; justify-content: center;">
+              Notify me at launch
+            </a>
           </div>
         </article>
 
@@ -1558,7 +1768,7 @@
               <span class="pill-tag">10+ Yrs Accounting</span>
               <span class="pill-tag">$1B+ Valuations Tracked</span>
               <span class="pill-tag">40-Entity Group MIS</span>
-              <span class="pill-tag accent">6 Private In-Browser Tools</span>
+              <span class="pill-tag accent">7 Private In-Browser Tools</span>
             </div>
           </div>
         </div>
@@ -1581,17 +1791,23 @@
         </p>
 
         <div class="contact-actions">
-          <button class="contact-card-btn" onclick="copyEmail('contactutharam@gmail.com')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+          <button class="contact-card-btn" data-copy-email="contactutharam@gmail.com" aria-label="Copy email contactutharam@gmail.com">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
             <span>contactutharam@gmail.com</span>
             <span style="font-size: 0.75rem; opacity: 0.75; margin-left: 4px;">(Copy)</span>
           </button>
 
+          <a href="mailto:contactutharam@gmail.com?subject=Utharam%20tools%20enquiry" class="contact-card-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+            <span>Send email directly</span>
+          </a>
+
           <a href="https://github.com/Utharam" target="_blank" rel="noopener noreferrer" class="contact-card-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
             <span>github.com/Utharam</span>
           </a>
         </div>
+        <p class="contact-sub">Prefer email? Use <a href="mailto:contactutharam@gmail.com">contactutharam@gmail.com</a> — no forms, no trackers, replies from Kerala (IST).</p>
       </div>
     </section>
 
@@ -1599,18 +1815,28 @@
 
   <!-- Site Footer -->
   <footer class="site-footer">
-    <div class="footer-content">
-      <div>
-        &copy; <span id="year"></span> Utharam. Simple Solutions for Complex Problems.
-      </div>
-      <div style="font-family: var(--font-mono); font-size: 0.8rem;">
-        100% Client-Side • Swiss Typographic Order • Kerala &amp; Global
+    <div class="footer-content" style="flex-direction: column; gap: 1.25rem;">
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#products">Products</a>
+        <a href="#standard">The Standard</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="https://github.com/Utharam" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="footer-bottom">
+        <div>
+          &copy; <span id="year"></span> Utharam. Simple Solutions for Complex Problems.
+        </div>
+        <div class="footer-trust">
+          Free tools • Zero trackers • Zero uploads • Kerala → Global
+        </div>
       </div>
     </div>
   </footer>
 
   <!-- Toast Notification -->
-  <div id="toast">
+  <div id="toast" role="status" aria-live="polite">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="var(--accent)"><polyline points="20 6 9 17 4 12"></polyline></svg>
     <span id="toast-text">Email copied to clipboard!</span>
   </div>
@@ -1620,74 +1846,113 @@
     // Copyright Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Theme Switcher
+    // Decorative SVGs hidden from assistive tech (unless labelled)
+    document.querySelectorAll('svg:not([aria-label]):not([role="img"])').forEach(function(s){
+      if (!s.getAttribute('aria-hidden')) s.setAttribute('aria-hidden', 'true');
+    });
+
+    // Theme Switcher (no inline onclick for CSP)
     function updateThemeIcons() {
       const isDark = document.documentElement.classList.contains('dark');
       document.getElementById('theme-icon-moon').style.display = isDark ? 'none' : 'block';
       document.getElementById('theme-icon-sun').style.display = isDark ? 'block' : 'none';
     }
-
     function toggleTheme() {
       const isDark = document.documentElement.classList.contains('dark');
       if (isDark) {
         document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
+        try { localStorage.setItem('theme', 'light'); } catch(e){}
       } else {
         document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
+        try { localStorage.setItem('theme', 'dark'); } catch(e){}
       }
       updateThemeIcons();
     }
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
     updateThemeIcons();
 
-    // Product Category Filtering
+    // Product Category Filtering (with aria-pressed + live counts, no inline handlers)
     function filterCategory(category, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
+      document.querySelectorAll('.filter-btn').forEach(function(b){
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      if (btn) { btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true'); }
       const cards = document.querySelectorAll('.product-card');
-      cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
+      cards.forEach(function(card){
+        const show = (category === 'all' || card.getAttribute('data-category') === category);
+        card.style.display = show ? '' : 'none';
       });
     }
+    function initFilters(){
+      const btns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.product-card');
+      const counts = { all: cards.length, audit: 0, accounting: 0, desktop: 0 };
+      cards.forEach(function(c){
+        const k = c.getAttribute('data-category');
+        if (counts[k] !== undefined) counts[k]++;
+      });
+      const labels = { all: 'All Tools', audit: 'Audit & Forensics', accounting: 'Accounting & Tax', desktop: 'Desktop & Workflow' };
+      btns.forEach(function(b){
+        const k = b.getAttribute('data-filter');
+        if (labels[k]) b.textContent = labels[k] + ' (' + (counts[k] || 0) + ')';
+        b.addEventListener('click', function(){ filterCategory(k, b); });
+      });
+    }
+    initFilters();
 
-    // Copy to Clipboard Toast
+    // Toast helper
+    var toastTimer;
+    function showToast(msg){
+      var toast = document.getElementById('toast');
+      document.getElementById('toast-text').textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2500);
+    }
+
+    // Copy to Clipboard with fallback (no surprise navigation)
     function copyEmail(email) {
-      navigator.clipboard.writeText(email).then(() => {
-        const toast = document.getElementById('toast');
-        toast.classList.add('show');
-        setTimeout(() => {
-          toast.classList.remove('show');
-        }, 2500);
-      }).catch(err => {
-        window.location.href = 'mailto:' + email;
-      });
+      function fallback(){
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = email; document.body.appendChild(ta);
+          ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+          showToast('Email copied: ' + email);
+        } catch(e){ showToast(email + ' — copy manually'); }
+      }
+      if (navigator.clipboard && window.isSecureContext !== false) {
+        navigator.clipboard.writeText(email).then(function(){
+          showToast('Email copied to clipboard!');
+        }).catch(fallback);
+      } else { fallback(); }
     }
-
-    // ScrollSpy active indicator in Nav
-    const sections = document.querySelectorAll('section.content-section, header.hero');
-    const navLinks = document.querySelectorAll('ul.nav-menu a');
-
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (pageYOffset >= sectionTop - 150) {
-          current = section.getAttribute('id');
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (current && link.getAttribute('href') === '#' + current) {
-          link.classList.add('active');
-        }
-      });
+    document.querySelectorAll('[data-copy-email]').forEach(function(btn){
+      btn.addEventListener('click', function(){ copyEmail(btn.getAttribute('data-copy-email')); });
     });
+
+    // ScrollSpy (fixed selector + rAF throttle)
+    var sections = document.querySelectorAll('section.content-section, section.hero');
+    var navLinks = document.querySelectorAll('nav[aria-label="Primary"] ul.nav-menu a, ul.nav-menu a');
+    var ticking = false;
+    function onScrollSpy(){
+      var current = '';
+      sections.forEach(function(section){
+        var id = section.getAttribute('id');
+        if (!id) return;
+        var top = section.offsetTop;
+        if (window.pageYOffset >= top - 160) current = id;
+      });
+      navLinks.forEach(function(link){
+        var active = current && link.getAttribute('href') === '#' + current;
+        if (active) link.classList.add('active'); else link.classList.remove('active');
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function(){
+      if (!ticking) { window.requestAnimationFrame(onScrollSpy); ticking = true; }
+    }, { passive: true });
+    onScrollSpy();
   </script>
 
 </body>
