@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Utharam — Simple Solutions for Complex Problems</title>
-  <meta name="description" content="Utharam builds practical, offline-first software designed for clarity, control, and real-world accounting workflows. Client-side, zero-knowledge financial tools. Free, no signup, no uploads.">
+  <meta name="description" content="Utharam builds practical, offline-first software for clarity, control, and real-world accounting, audit, and legal research workflows. Client-side, zero-knowledge tools. Free, no signup, no uploads.">
   <link rel="canonical" href="https://utharam.github.io/">
   <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#090d14" media="(prefers-color-scheme: dark)">
@@ -19,15 +19,15 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Utharam">
   <meta property="og:title" content="Utharam — Simple Solutions for Complex Problems">
-  <meta property="og:description" content="Free offline-first tools for auditors & accountants: spreadsheet forensics, SQL ledger analytics, GST simulators. No signup, no uploads.">
+  <meta property="og:description" content="Free offline-first tools for auditors & accountants: spreadsheet forensics, SQL ledger analytics, GST simulators, statutory readers. No signup, no uploads.">
   <meta property="og:url" content="https://utharam.github.io/">
   <meta property="og:image" content="https://utharam.github.io/og-cover.png">
   <meta property="og:image:alt" content="Utharam product suite preview">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Utharam — Offline-first tools for accountants">
-  <meta name="twitter:description" content="7 free client-side tools. Zero uploads, zero trackers, works offline.">
+  <meta name="twitter:title" content="Utharam — Offline-first tools for accountants &amp; legal researchers">
+  <meta name="twitter:description" content="11 free client-side tools. Zero uploads, zero trackers, works offline.">
   <meta name="twitter:image" content="https://utharam.github.io/og-cover.png">
 
   <!-- Structured data: portfolio of free tools -->
@@ -75,7 +75,7 @@
       
       --text-main: #0f172a;
       --text-muted: #475569;
-      --text-subtle: #64748b;
+      --text-subtle: #5b6b7f;
       
       --accent: #059669;
       --accent-deep: #166534;
@@ -106,7 +106,7 @@
       
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --text-subtle: #64748b;
+      --text-subtle: #8b9bb0;
       
       --accent: #10b981;
       --accent-deep: #34d399;
@@ -265,6 +265,7 @@
       padding: 5.5rem 1.5rem 4rem;
       text-align: center;
       position: relative;
+      overflow: hidden;
       border-bottom: 1px solid var(--border-light);
     }
 
@@ -383,7 +384,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.09em;
-      color: var(--accent);
+      color: var(--accent-deep);
       margin-bottom: 0.4rem;
       font-family: var(--font-mono);
     }
@@ -529,10 +530,12 @@
 
     .product-subtitle {
       font-size: 0.875rem;
-      color: var(--accent);
+      color: var(--accent-deep);
       font-weight: 600;
       margin-bottom: 0.85rem;
     }
+    .dark .section-eyebrow,
+    .dark .product-subtitle { color: var(--accent); }
 
     .product-desc {
       font-size: 0.95rem;
@@ -562,20 +565,22 @@
     .forensic-row:last-child { border-bottom: none; }
 
     .forensic-status-pass {
-      color: var(--accent);
+      color: var(--accent-deep);
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
+    .dark .forensic-status-pass { color: var(--accent); }
 
     .forensic-status-alert {
-      color: #d97706;
+      color: #92400e;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
+    .dark .forensic-status-alert { color: #f59e0b; }
 
     .mini-sql-terminal {
       background: #0b1120;
@@ -591,7 +596,7 @@
     .mini-sql-terminal .sql-kw { color: #38bdf8; font-weight: 600; }
     .mini-sql-terminal .sql-fn { color: #f43f5e; }
     .mini-sql-terminal .sql-str { color: #4ade80; }
-    .mini-sql-terminal .sql-res { color: #64748b; font-style: italic; margin-top: 0.4rem; }
+    .mini-sql-terminal .sql-res { color: #8b9bb0; font-style: italic; margin-top: 0.4rem; }
 
     .mini-chip-preview {
       background: var(--bg-surface-elevated);
@@ -606,6 +611,9 @@
       align-items: center;
       justify-content: space-between;
     }
+
+    .chip-accent { color: var(--accent-deep); }
+    .dark .chip-accent { color: var(--accent); }
 
     .card-actions {
       display: flex;
@@ -635,8 +643,8 @@
     }
 
     .btn-primary:hover {
-      background: var(--accent);
-      border-color: var(--accent);
+      background: #065f46;
+      border-color: #065f46;
       color: #ffffff;
       box-shadow: var(--shadow-sm);
     }
@@ -679,7 +687,7 @@
     }
 
     .matrix-table th.highlight {
-      color: var(--accent);
+      color: var(--accent-deep);
       background: var(--accent-surface);
       border-bottom-color: var(--border-accent);
     }
@@ -710,7 +718,7 @@
     /* Pipeline Cards */
     .pipeline-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
       gap: 1.5rem;
     }
 
@@ -874,7 +882,7 @@
 
     .dev-meta .dev-role {
       font-size: 0.85rem;
-      color: var(--accent);
+      color: var(--accent-deep);
       font-family: var(--font-mono);
       font-weight: 600;
       margin-bottom: 0.5rem;
@@ -891,11 +899,11 @@
       flex-shrink: 0;
     }
 
-    /* Contact Section (Tactical Obsidian Card) */
+    /* Contact Section (Theme-Aware CTA) */
     .contact-box {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      color: #f8fafc;
+      background: linear-gradient(135deg, var(--bg-surface) 0%, var(--accent-surface) 100%);
+      border: 1px solid var(--border-accent);
+      color: var(--text-main);
       padding: 4rem 2.5rem;
       border-radius: var(--radius-xl);
       text-align: center;
@@ -905,8 +913,9 @@
     }
 
     .dark .contact-box {
-      background: #111726;
-      border: 1px solid #1e293b;
+      background: linear-gradient(135deg, #111726 0%, #0d1a16 100%);
+      border-color: #1e293b;
+      color: #f8fafc;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
     }
 
@@ -917,8 +926,11 @@
       right: 0;
       width: 450px;
       height: 450px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
       pointer-events: none;
+    }
+    .dark .contact-box::after {
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
     }
 
     .contact-box h2 {
@@ -927,15 +939,17 @@
       font-weight: 800;
       letter-spacing: -0.03em;
       margin-bottom: 0.75rem;
-      color: #ffffff;
+      color: var(--text-main);
     }
+    .dark .contact-box h2 { color: #ffffff; }
 
     .contact-box p {
-      color: #94a3b8;
+      color: var(--text-muted);
       font-size: 1.05rem;
       max-width: 580px;
       margin: 0 auto 2.5rem;
     }
+    .dark .contact-box p { color: #94a3b8; }
 
     .contact-actions {
       display: flex;
@@ -945,9 +959,9 @@
     }
 
     .contact-card-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      color: #ffffff;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
       padding: 0.85rem 1.6rem;
       border-radius: var(--radius-md);
       display: inline-flex;
@@ -958,13 +972,27 @@
       font-weight: 600;
       transition: all 0.15s ease;
       cursor: pointer;
+      box-shadow: var(--shadow-sm);
     }
 
     .contact-card-btn:hover {
+      background: var(--bg-surface-elevated);
+      border-color: var(--accent);
+      color: var(--text-main);
+      transform: translateY(-2px);
+    }
+
+    .dark .contact-card-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      box-shadow: none;
+    }
+
+    .dark .contact-card-btn:hover {
       background: rgba(255, 255, 255, 0.16);
       border-color: var(--accent);
       color: #ffffff;
-      transform: translateY(-2px);
     }
 
     /* Footer */
@@ -1023,7 +1051,9 @@
     }
     .skip-link:focus { left: 0; }
 
-    ::selection { background: var(--accent); color: #fff; }
+    ::selection { background: #065f46; color: #fff; }
+    .dirty-value { color: #b91c1c; }
+    .dark .dirty-value { color: #f87171; }
 
     :focus-visible {
       outline: 2px solid var(--accent);
@@ -1099,8 +1129,10 @@
     .pipeline-card:hover, .pillar-box:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--border-hover); }
 
     .contact-sub { margin-top: 1.25rem; font-size: 0.85rem !important; margin-bottom: 0 !important; }
-    .contact-sub a { color: #fff; font-weight: 600; }
+    .contact-sub a { color: var(--accent-deep); font-weight: 600; }
     .contact-sub a:hover { color: var(--accent); }
+    .dark .contact-sub a { color: #fff; }
+    .dark .contact-sub a:hover { color: #6ee7b7; }
 
     .footer-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
     .footer-links a { color: var(--text-subtle); text-decoration: none; font-weight: 500; }
@@ -1132,7 +1164,9 @@
       .footer-bottom { flex-direction: column; text-align: center; justify-content: center; }
       .matrix-table th, .matrix-table td { padding: 0.75rem; font-size: 0.85rem; }
       .telemetry-strip { border-radius: var(--radius-lg); flex-direction: column; align-items: stretch; gap: 0.65rem; width: 100%; }
+      .contact-box { padding: 3rem 1.25rem; }
       .contact-actions .contact-card-btn { width: 100%; justify-content: center; }
+      .mini-chip-preview { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
     }
   </style>
 </head>
@@ -1191,16 +1225,16 @@
     <div class="hero-inner">
       <div class="hero-badge">
         <span class="pulse-dot" aria-hidden="true"></span>
-        <span>Client-Side Financial Runtimes • Zero Cloud Uploads</span>
+        <span>Client-Side Runtimes • Zero Cloud Uploads</span>
       </div>
       <h1 id="hero-heading">Simple Solutions for Complex Problems.</h1>
       <p class="lead">
-        Free offline-first tools for auditors, accountants, and business owners — spreadsheet forensics, SQL ledger analytics, and GST utilities that run 100% in your browser. No signup, no uploads.
+        Free offline-first tools for auditors, accountants, and business owners — spreadsheet forensics, SQL ledger analytics, GST utilities, and statutory research that run 100% in your browser. No signup, no uploads.
       </p>
 
       <div class="hero-actions">
         <a href="#products" class="btn btn-primary btn-lg">
-          Explore 7 free tools
+          Explore 11 free tools
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
         </a>
         <a href="https://sheethound.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg">
@@ -1238,7 +1272,7 @@
         <div class="section-eyebrow">Flagship Suite</div>
         <h2 class="section-title">Products &amp; Solutions</h2>
         <p class="section-subtitle">
-          Engineered for auditors, accountants, and corporate operators who need absolute speed, zero-knowledge privacy, and zero feature bloat.
+          Engineered for auditors, accountants, legal researchers, and corporate operators who need absolute speed, zero-knowledge privacy, and zero feature bloat.
         </p>
       </div>
 
@@ -1247,6 +1281,7 @@
         <button class="filter-btn active" data-filter="all" aria-pressed="true">All Tools</button>
         <button class="filter-btn" data-filter="audit" aria-pressed="false">Audit &amp; Forensics</button>
         <button class="filter-btn" data-filter="accounting" aria-pressed="false">Accounting &amp; Tax</button>
+        <button class="filter-btn" data-filter="legal" aria-pressed="false">Legal Research</button>
         <button class="filter-btn" data-filter="desktop" aria-pressed="false">Desktop &amp; Workflow</button>
       </div>
 
@@ -1381,13 +1416,13 @@
 
             <div class="mini-chip-preview">
               <span>Simulators: <strong>Rule 86B &bull; 3B Set-Off</strong></span>
-              <span style="color: var(--accent);">● 64 Provisions &bull; Case Laws</span>
+              <span class="chip-accent">● 64 Provisions &bull; Case Laws</span>
             </div>
           </div>
 
           <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>Study + simulator</span></div>
           <div class="card-actions">
-            <a href="https://gstinteractive.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <a href="https://gst-interactive.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
               Launch GST Interactive
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
@@ -1395,40 +1430,40 @@
           </div>
         </article>
 
-        <!-- CARD 4: Excel Cleaner (6 Columns) -->
-        <article class="product-card col-span-6" data-category="audit">
+        <!-- CARD 4: InvoiceCraft (6 Columns) -->
+        <article class="product-card col-span-6" data-category="accounting">
           <div>
             <div class="card-top">
-              <div class="card-icon" title="ERP Sanitizer">
+              <div class="card-icon" title="InvoiceCraft Billing Engine">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 3v18"></path>
-                  <rect width="18" height="18" x="3" y="3" rx="2"></rect>
-                  <path d="M3 9h18"></path>
-                  <path d="M3 15h18"></path>
+                  <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"></path>
+                  <line x1="8" x2="16" y1="8" y2="8"></line>
+                  <line x1="8" x2="16" y1="12" y2="12"></line>
+                  <line x1="8" x2="13" y1="16" y2="16"></line>
                 </svg>
               </div>
               <div class="card-badges">
-                <span class="pill-tag">Data Sanitizer</span>
-                <span class="pill-tag">Rule Engine</span>
+                <span class="pill-tag">IndexedDB Vault</span>
+                <span class="pill-tag">Multi-Currency</span>
               </div>
             </div>
 
-            <h3 class="product-title">Excel Cleaner</h3>
-            <div class="product-subtitle">Dirty ERP Export Sanitizer</div>
+            <h3 class="product-title">InvoiceCraft</h3>
+            <div class="product-subtitle">Client-Side Invoice &amp; Estimate Builder</div>
             <p class="product-desc">
-              Instant one-click remediation for messy spreadsheets: strips non-breaking web spaces, coerces text figures into real numbers for <code>=SUM()</code>, and runs compound rules.
+              Browser-based billing and quotation generator storing documents, clients, and templates locally in IndexedDB. Features automated currency-to-words, multi-leg tax splits, sequential numbering, and clean vector PDF export with zero cloud uploads.
             </p>
 
             <div class="mini-chip-preview">
-              <span>Dirty String: <code style="color: #ef4444;">" 1,250.00 "</code></span>
-              <span>→ <strong style="color: var(--accent);">1250.00</strong></span>
+              <span>Engine: <strong>Auto # &bull; Multi-Tax</strong></span>
+              <span class="chip-accent">&#9679; 100% In-Browser IndexedDB</span>
             </div>
           </div>
 
-          <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>1-click sanitize</span></div>
+          <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>Vector PDF · Local vault</span></div>
           <div class="card-actions">
-            <a href="https://excel-cleaner.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-              Launch Excel Cleaner
+            <a href="https://invoicecraft.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Launch InvoiceCraft
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
             </a>
             <a href="#standard" class="btn btn-secondary">Why it's private</a>
@@ -1460,7 +1495,7 @@
 
             <div class="mini-chip-preview">
               <span>Tax Mode: <strong>GST RCM Auto-Balanced</strong></span>
-              <span style="color: var(--accent);">● Offline Ready</span>
+              <span class="chip-accent">● Offline Ready</span>
             </div>
           </div>
 
@@ -1500,7 +1535,7 @@
             </p>
 
             <div class="mini-chip-preview">
-              <span>Input: <code style="color: var(--accent);">₹ 1,50,000</code></span>
+              <span>Input: <code class="chip-accent">₹ 1,50,000</code></span>
               <span>→ <strong>One Lakh Fifty Thousand</strong></span>
             </div>
           </div>
@@ -1515,13 +1550,187 @@
           </div>
         </article>
 
-        <!-- CARD 7: Main-Deck (Full-Width Anchor - 12 Columns) -->
+        <!-- CARD 7: Excel Cleaner (6 Columns) -->
+        <article class="product-card col-span-6" data-category="audit">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="ERP Sanitizer">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v18"></path>
+                  <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                  <path d="M3 9h18"></path>
+                  <path d="M3 15h18"></path>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag">Data Sanitizer</span>
+                <span class="pill-tag">Rule Engine</span>
+              </div>
+            </div>
+
+            <h3 class="product-title">Excel Cleaner</h3>
+            <div class="product-subtitle">Dirty ERP Export Sanitizer</div>
+            <p class="product-desc">
+              Instant one-click remediation for messy spreadsheets: strips non-breaking web spaces, coerces text figures into real numbers for <code>=SUM()</code>, and runs compound rules.
+            </p>
+
+            <div class="mini-chip-preview">
+              <span>Dirty String: <code class="dirty-value">" 1,250.00 "</code></span>
+              <span>→ <strong class="chip-accent">1250.00</strong></span>
+            </div>
+          </div>
+
+          <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>1-click sanitize</span></div>
+          <div class="card-actions">
+            <a href="https://excel-cleaner.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Launch Excel Cleaner
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+            </a>
+            <a href="#standard" class="btn btn-secondary">Why it's private</a>
+          </div>
+        </article>
+
+        <!-- CARD 8: LexHop Reader (6 Columns) -->
+        <article class="product-card col-span-6" data-category="legal">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="LexHop Document Reader">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                  <path d="m9 9 3 3-3 3"></path>
+                  <path d="M13 15h4"></path>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag">Statutory Reader</span>
+                <span class="pill-tag">KWIC Concordance</span>
+              </div>
+            </div>
+
+            <h3 class="product-title">LexHop Reader</h3>
+            <div class="product-subtitle">Frictionless Statutory Document Reader</div>
+            <p class="product-desc">
+              In-browser reader for dense statutes, acts, and cross-referenced PDFs. Features KWIC term concordance, sentence segmentation with legal abbreviation guards, and a side-by-side clause comparison tray with zero server uploads.
+            </p>
+
+            <div class="mini-chip-preview">
+              <span>Concordance: <strong>KWIC &bull; Compare Tray</strong></span>
+              <span class="chip-accent">&#9679; 100% In-Browser Dexie/Wasm</span>
+            </div>
+          </div>
+
+          <div class="card-meta"><span><strong>Free</strong> · Open Source</span><span class="dot">·</span><span>Client-side PDF &amp; KWIC</span></div>
+          <div class="card-actions">
+            <a href="https://lexhop.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Launch LexHop
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+            </a>
+            <a href="https://github.com/Utharam/lexhop" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+              GitHub
+            </a>
+          </div>
+        </article>
+
+        <!-- CARD 9: StatuteGraph (6 Columns) -->
+        <article class="product-card col-span-6" data-category="legal">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="Statutory Citation Graph">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="5" cy="6" r="2"></circle>
+                  <circle cx="19" cy="6" r="2"></circle>
+                  <circle cx="12" cy="18" r="2"></circle>
+                  <path d="M7 6h10"></path>
+                  <path d="m6.6 7.8 4.2 8.4"></path>
+                  <path d="m17.4 7.8-4.2 8.4"></path>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag">Statutory Graph</span>
+                <span class="pill-tag">Bidirectional Citations</span>
+              </div>
+            </div>
+
+            <h3 class="product-title">StatuteGraph</h3>
+            <div class="product-subtitle">Statutory Structure &amp; Citation Reader</div>
+            <p class="product-desc">
+              Turns dense Acts into a navigable graph: provision hierarchy on one axis, every cross-reference resolved in both directions on the other. Click any in-text citation, trace which provisions cite it back, and keep the source document on your own device.
+            </p>
+
+            <div class="mini-chip-preview">
+              <span>Graph: <strong>Provisions &harr; Citations</strong></span>
+              <span class="chip-accent">&#9679; Incoming + Outgoing Resolved</span>
+            </div>
+          </div>
+
+          <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>IndexedDB · 0 uploads</span></div>
+          <div class="card-actions">
+            <a href="https://statutegraph.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Launch StatuteGraph
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+            </a>
+            <a href="https://github.com/Utharam/StatuteGraph" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+              GitHub
+            </a>
+          </div>
+        </article>
+
+        <!-- CARD 10: LexParser (6 Columns) -->
+        <article class="product-card col-span-6" data-category="legal">
+          <div>
+            <div class="card-top">
+              <div class="card-icon" title="PDF-to-JSON Statute Parser">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <path d="m10 12-2 2 2 2"></path>
+                  <path d="m14 12 2 2-2 2"></path>
+                </svg>
+              </div>
+              <div class="card-badges">
+                <span class="pill-tag">PDF &rarr; JSON</span>
+                <span class="pill-tag">Rust + Wasm</span>
+              </div>
+            </div>
+
+            <h3 class="product-title">LexParser</h3>
+            <div class="product-subtitle">PDF-to-Akoma Ntoso Statute Parser</div>
+            <p class="product-desc">
+              Converts text-based statute PDFs into structured <code>akn.statute.v1</code> JSON with a Rust engine compiled to WebAssembly. The file never leaves the tab, and the export drops straight into StatuteGraph.
+            </p>
+
+            <div class="mini-chip-preview">
+              <span>Input: <strong>Statute PDF</strong> &rarr; <strong>Structured JSON</strong></span>
+              <span class="chip-accent">&#9679; 100% In-Browser</span>
+            </div>
+          </div>
+
+          <div class="card-meta"><span><strong>Free</strong> · No signup</span><span class="dot">·</span><span>Rust/Wasm · No server</span></div>
+          <div class="card-actions">
+            <a href="https://lexparser.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Launch LexParser
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+            </a>
+            <a href="https://github.com/Utharam/LexParser" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+              GitHub
+            </a>
+          </div>
+        </article>
+
+        <!-- CARD 11: Main-Deck (Full-Width Anchor - 12 Columns) -->
         <article class="product-card col-span-12" data-category="desktop" style="background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
             <div style="max-width: 780px;">
               <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
-                <div class="card-icon" style="width: 38px; height: 38px;">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
+                <div class="card-icon" style="width: 38px; height: 38px;" title="Personal Desktop Surface">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                    <line x1="8" x2="16" y1="21" y2="21"></line>
+                    <line x1="12" x2="12" y1="17" y2="21"></line>
+                  </svg>
                 </div>
                 <h3 class="product-title" style="margin-bottom: 0;">Main-Deck</h3>
                 <span class="pill-tag accent">Desktop Surface</span>
@@ -1535,11 +1744,11 @@
             </div>
             <div>
               <div class="card-actions" style="margin-top: 0;">
-              <a href="https://main-deck.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">
-                Launch Main-Deck
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
-              </a>
-              <a href="#standard" class="btn btn-secondary" style="padding: 0.75rem 1.25rem;">Local-first approach</a>
+                <a href="https://main-deck.utharam.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">
+                  Launch Main-Deck
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+                </a>
+                <a href="#standard" class="btn btn-secondary" style="padding: 0.75rem 1.25rem;">Local-first approach</a>
               </div>
             </div>
           </div>
@@ -1635,7 +1844,7 @@
               <h3 style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--text-main);">Flowbook</h3>
               <span class="pipeline-status active-dev">● Active R&amp;D</span>
             </div>
-            <div style="font-size: 0.825rem; font-weight: 600; color: var(--accent); margin-bottom: 0.75rem; font-family: var(--font-mono);">
+            <div style="font-size: 0.825rem; font-weight: 600; color: var(--accent-deep); margin-bottom: 0.75rem; font-family: var(--font-mono);">
               A New Philosophy • Hybrid Event + Transaction Accounting
             </div>
             <p style="font-size: 0.925rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem;">
@@ -1657,7 +1866,7 @@
               <h3 style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--text-main);">Org Chart Builder</h3>
               <span class="pipeline-status">● In Development</span>
             </div>
-            <div style="font-size: 0.825rem; font-weight: 600; color: var(--accent); margin-bottom: 0.75rem; font-family: var(--font-mono);">
+            <div style="font-size: 0.825rem; font-weight: 600; color: var(--accent-deep); margin-bottom: 0.75rem; font-family: var(--font-mono);">
               Visual Hierarchy • Cap Table Sync • PDF Export
             </div>
             <p style="font-size: 0.925rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem;">
@@ -1679,7 +1888,7 @@
               <h3 style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--text-main);">HR Dashboard</h3>
               <span class="pipeline-status">● Planned</span>
             </div>
-            <div style="font-size: 0.825rem; font-weight: 600; color: var(--accent); margin-bottom: 0.75rem; font-family: var(--font-mono);">
+            <div style="font-size: 0.825rem; font-weight: 600; color: var(--accent-deep); margin-bottom: 0.75rem; font-family: var(--font-mono);">
               Employee Ops • Attendance • Payroll Sync
             </div>
             <p style="font-size: 0.925rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem;">
@@ -1768,7 +1977,7 @@
               <span class="pill-tag">10+ Yrs Accounting</span>
               <span class="pill-tag">$1B+ Valuations Tracked</span>
               <span class="pill-tag">40-Entity Group MIS</span>
-              <span class="pill-tag accent">7 Private In-Browser Tools</span>
+              <span class="pill-tag accent">10 Private In-Browser Tools</span>
             </div>
           </div>
         </div>
@@ -1887,12 +2096,12 @@
     function initFilters(){
       const btns = document.querySelectorAll('.filter-btn');
       const cards = document.querySelectorAll('.product-card');
-      const counts = { all: cards.length, audit: 0, accounting: 0, desktop: 0 };
+      const counts = { all: cards.length, audit: 0, accounting: 0, legal: 0, desktop: 0 };
       cards.forEach(function(c){
         const k = c.getAttribute('data-category');
         if (counts[k] !== undefined) counts[k]++;
       });
-      const labels = { all: 'All Tools', audit: 'Audit & Forensics', accounting: 'Accounting & Tax', desktop: 'Desktop & Workflow' };
+      const labels = { all: 'All Tools', audit: 'Audit & Forensics', accounting: 'Accounting & Tax', legal: 'Legal Research', desktop: 'Desktop & Workflow' };
       btns.forEach(function(b){
         const k = b.getAttribute('data-filter');
         if (labels[k]) b.textContent = labels[k] + ' (' + (counts[k] || 0) + ')';
